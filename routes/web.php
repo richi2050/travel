@@ -19,6 +19,7 @@ Route::get('/project','ProjectController@index')->name('project');
 
 Route::resource('/project', 'ProjectController');
 Route::resource('/sub_project', 'SubProjectController');
+Route::resource('/travel', 'TravelController');
 
 
 Auth::routes();

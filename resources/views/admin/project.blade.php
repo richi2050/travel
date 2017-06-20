@@ -2,495 +2,312 @@
 
 @section('content')
     <style>
-        .stats {
-            text-align:center;
-            text-shadow:1px 1px 0px #fff;
-            margin-top:25px;
+        .tree { margin: 1em; }
 
-        }
-        .stats li{
-            width:125px;
-        }
-        .stats span{
-            font-family:Helvetica;
-            font-weight:bold;
-            text-shadow:1px 1px 0px #fff;
-            font-size:4em;
-
-            display:block;
-            line-height:1em;
+        .tree input {
+            position: absolute;
+            clip: rect(0, 0, 0, 0);
         }
 
-        /* Large desktop */
-        @media (min-width: 1200px) {
+        .tree input ~ ul { display: none; }
+
+        .tree input:checked ~ ul { display: block; }
+
+        /* ————————————————————–
+          Tree rows
+        */
+        .tree li {
+            line-height: 1.2;
+            position: relative;
+            padding: 0 0 1em 1em;
         }
 
-        /* Portrait tablet to landscape and desktop */
-        @media (min-width: 768px) and (max-width: 979px) {
+        .tree ul li { padding: 1em 0 0 1em; }
+
+        .tree > li:last-child { padding-bottom: 0; }
+
+        /* ————————————————————–
+          Tree labels
+        */
+        .tree_label {
+            position: relative;
+            display: inline-block;
+            background: #fff;
         }
 
-        /* Landscape phone to portrait tablet */
-        @media (max-width: 767px) {
-            .profile img{
-                width:75px;
-            }
-            .profile h2{
-                font-size:1.7em;
-            }
-            .stats span{
-                font-size: 2em;
-            }
-            .span2{
-                border-radius: 50px;
-            }
+        label.tree_label { cursor: pointer; }
 
+        label.tree_label:hover { color: #666; }
+
+        /* ————————————————————–
+          Tree expanded icon
+        */
+        label.tree_label:before {
+            background: #099C7F;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+            float: left;
+            margin: 0 1em 0 -2em;
+            width: 1.2em;
+            height: 1.2em;
+            border-radius: 1em;
+            content: '+';
+            text-align: center;
+            line-height: .9em;
         }
+
+        :checked ~ label.tree_label:before { content: '–'; }
+        :checked ~ label.tree_label i.fa:before { color: #2C398E;}
+
+
+        /* ————————————————————–
+          Tree branches
+        */
+        :checked ~ i.fa-folder-open:before {
+            color: #2C398E;
+        }
+        .fa:before{
+            color: #099C7F;
+        }
+        .fa.fa-plane:before{
+            color: #2C398E;
+        }
+        .tree li:before {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -.5em;
+            display: block;
+            width: 0;
+            border-left: 1px solid #777;
+            content: "";
+        }
+
+        .tree_label:after {
+            position: absolute;
+            top: 0;
+            left: -1.5em;
+            display: block;
+            height: 0.5em;
+            width: 1em;
+            border-bottom: 1px solid #777;
+            border-left: 1px solid #777;
+            border-radius: 0 0 0 .3em;
+            content: '';
+        }
+
+        label.tree_label:after { border-bottom: 0; }
+
+        :checked ~ label.tree_label:after {
+            border-radius: 0 .3em 0 0;
+            border-top: 1px solid #777;
+            border-right: 1px solid #777;
+            border-bottom: 0;
+            border-left: 0;
+            bottom: 0;
+            top: 0.5em;
+            height: auto;
+        }
+
+        .tree li:last-child:before {
+            height: 1em;
+            bottom: auto;
+        }
+
+        .tree > li:last-child:before { display: none; }
+
+        .tree_custom {
+            display: block;
+            background: #eee;
+            padding: 1em;
+            border-radius: 0.3em;
+        }
+        .pre-scrollable {
+            max-height: 460px;
+            overflow-y: scroll;
+        }
+
     </style>
-
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-    {{--<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">--}}
     <br><br>
-    <div class="container profile">
+
+
+    <div class="container">
         <div class="row">
-            <div class="span12">
-                {{--{{ $home->pru() }}--}}
-                    <div class=" well-small clearfix">
-                    <div class="row-fluid">
-                        <div class="span2">
-                            <img src="http://www.gravatar.com/avatar/f6112e781842d6a2b4636b35451401ff?s=125" style="border-radius: 50%;" class="img-polaroid" />
+            <div class="col-xs-12 col-sm-6 col-md-6 ">
+                <div class="panel panel-default ">
+                        <div class="col-md-8 col-md-offset-8">
+                            <i class="fa fa-plus fa-2x add_project"  style="cursor: pointer;"></i>
                         </div>
-                        <div class="span4">
-                            <h3 class="title_name"> {{ Auth::user()->name }}</h3>
-                        </div>
-                        <div class="span6 ">
-
-                            <div><!--/span6-->
-                            </div><!--/row-->
-                        </div>
-                        <!--Body content-->
+                    <div class="panel-body pre-scrollable">
+                        <ul class="tree">
+                            @foreach($projects as $pro)
+                            <li>
+                                <input type="checkbox" id="p-{{$pro['proyectos']['id']}}" />
+                                <label class="tree_label" data-type="1" for="p-{{$pro['proyectos']['id']}}" data-id="{{$pro['proyectos']['id']}}">
+                                    <i class="fa fa-suitcase " aria-hidden="true"></i> {{ $pro['proyectos']['name'] }}
+                                </label>
+                                @foreach($pro['sub_proyectos'] as $sup)
+                                    <ul>
+                                        <li>
+                                            <input type="checkbox"  id="s-{{ $sup['id'] }}" />
+                                            <label for="s-{{ $sup['id'] }}" data-type="2" class="tree_label" data-id="{{ $sup['id'] }}">
+                                                <i class="fa fa-folder-open" aria-hidden="true"></i>   {{ $sup['name'] }}
+                                            </label>
+                                            @foreach($pro['travel'] as $tra)
+                                                <ul>
+                                                    <li>
+                                                        <i class="fa fa-plane" style="color: #2C398E;" aria-hidden="true"></i>
+                                                        <span class="tree_label" data-type="3" data-id="{{ $tra['id'] }}" style="cursor: pointer;">{{ $tra['name'] }}</span>
+                                                    </li>
+                                                </ul>
+                                            @endforeach
+                                        </li>
+                                    </ul>
+                                @endforeach
+                            </li>
+                             @endforeach
+                        </ul>
                     </div>
                 </div>
-
-                <!-- Inicia apartado de proyectos -->
-                    <div class=" well-small clearfix">
-                            <div class="span2">
-                                <label class="label_icon glyphicon glyphicon-lock" for="Proyectos"> Proyectos </label>
-                            </div>
-                    </div>
-
-                    <div class=" clearfix">
-                    <table class="table  table-sm">
-                        <thead class="table-info">
-                        <tr>
-
-                            <th>Proyecto</th>
-                            <th>Descripción</th>
-                            <th>Responsable</th>
-                            <th>Estatus</th>
-                        </tr>
-                        </thead>
-                        <tbody >
-                            @foreach($projects as $pj)
-                                <tr>
-                                    {{ Form::open(['id' =>'form-project-'.$pj->id ])  }}
-                                        <td>
-                                            <div class="form-group">
-                                                <input type="text" name="id" class="hidden" value="{{ $pj->id  }}">
-                                                {{ Form::text('name', $pj->name ,['class' =>'form-control hidden '.''. 'data-txt-project-'.$pj->id]) }}
-                                                <label for="" class="label-txt-project-{{$pj->id }}"> {{ $pj->name }} </label>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            {{ Form::text('description', $pj->description ,['class' =>'form-control hidden '.''. 'data-txt-project-'.$pj->id]) }}
-                                            <label for="" class="label-txt-project-{{$pj->id }}"> {{ $pj->description }} </label>
-                                        </td>
-                                        <td>
-                                            {{ Form::text('user', $pj->user->name ,['class' =>'typeahead form-control hidden '.''. 'data-txt-project-'.$pj->id,'data-txt-hidden' => 'data-txt-h-project-'.$pj->id]) }}
-                                            <input type="text" value="{{ $pj->user->id }} " name="user_id" id="data-txt-h-project-{{$pj->id}}" class="hidden form-control">
-                                            <label for="" class="label-txt-project-{{$pj->id }}"> {{ $pj->user->name }} </label></td>
-                                        <td>
-
-                                            {{ Form::select('active', array('1' => 'Activo', '0' => 'Inativo'), $pj->active  ,['class' =>'form-control hidden '.''. 'data-txt-project-'.$pj->id])  }}
-                                            <label for="" class="label-txt-project-{{$pj->id }}">{{ ($pj->active)? 'Activo': 'Inactivo' }} </label></td>
-                                        <td>
-                                            <span data-iden='0' class ='glyphicon-default glyphicon glyphicon-pencil edit-project' data-id="{{ $pj->id }}" data-name="project"></span>
-                                            <span class ='glyphicon-warning glyphicon glyphicon-remove project-r-{{ $pj->id }}'></span>
-                                        </td>
-                                    {{ Form::close() }}
-                                </tr>
-                            @endforeach
-                            <tr class="hidden" id="table-projects">
-                                {{ Form::open(['id' =>'form-project-default' ])  }}
-                                    <td>
-                                        <div class="form-group">
-                                            {{ Form::text('name', '' ,['class' =>'form-control']) }}
-                                            {{ Form::text('id', '' ,['class' =>' hidden form-control']) }}
-                                        </div>
-                                    </td>
-                                    <td>
-                                        {{ Form::text('description', '' ,['class' =>'form-control']) }}
-                                    </td>
-                                    <td>
-                                        {{ Form::text('user', '' ,['class' =>'typeahead form-control','data-txt-hidden' => 'data-txt-h-project-default']) }}
-                                        <input type="text" value="" name="user_id" id="data-txt-h-project-default" class="hidden form-control" >
-                                    </td>
-                                    <td>
-                                        {{ Form::select('active', array('1' => 'Activo', '0' => 'Inativo'), 1 ,['class' =>'form-control'])  }}
-                                    </td>
-                                    <td>
-                                        <span data-iden='1' class ='glyphicon-success glyphicon glyphicon-floppy-disk edit-project' data-id="default" data-name="project"></span>
-                                        <span class ='glyphicon-warning glyphicon glyphicon-remove'></span>
-                                    </td>
-                                {{ Form::close() }}
-                            </tr>
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <span data-iden='0' class ='glyphicon-success glyphicon glyphicon-plus-sign add-row' data-name="projects">Agregar</span>
-                                </td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
-                <!-- Termina  apartado de sub proyectos -->
-
-                <!-- Inicia apartado de sub proyectos -->
-                    <div class=" well-small clearfix">
-                        <div class="span6">
-                            <label class="label_icon glyphicon glyphicon-folder-close" for="Proyectos"> SubProyectos </label>
-                        </div>
-                    </div>
-
-                    <div class=" clearfix">
-                        <table class="table  table-sm">
-                            <thead class="table-info">
-                            <tr>
-
-                                <th>Proyecto</th>
-                                <th>Sub Proyecto</th>
-                                <th>Descripción</th>
-                                <th>Responsable</th>
-                                <th>Estatus</th>
-                            </tr>
-                            </thead>
-                            <tbody >
-                            @foreach($subproject as $spj)
-                                <tr>
-                                    {{ Form::open(['id' =>'form-sub-project-'.$spj->id ])  }}
-                                    <td>
-                                        {{ Form::text('proyecto', $spj->project->name  ,['class' =>'form-control hidden '.''. 'data-txt-sub-project-'.$spj->id]) }}
-                                        <label for="" class="label-txt-sub-project-{{$spj->id }}"> {{ $spj->project->name  }} </label>
-                                    </td>
-                                    <td>
-                                        {{ Form::text('Sub_proyecto', $spj->name ,['class' =>'form-control hidden '.''. 'data-txt-sub-project-'.$spj->id]) }}
-                                        <label for="" class="label-txt-sub-project-{{$spj->id }}"> {{ $spj->name }} </label>
-                                    </td>
-                                    <td>
-                                        {{ Form::text('description', $spj->description ,['class' =>'form-control hidden '.''. 'data-txt-sub-project-'.$spj->id]) }}
-                                        <label for="" class="label-txt-sub-project-{{$spj->id }}"> {{ $spj->description }} </label>
-                                    </td>
-                                    <td>
-                                        {{ Form::text('user_id', $spj->user->name ,['class' =>'typeahead form-control hidden '.''. 'data-txt-sub-project-'.$spj->id,'data-txt-hidden' => 'data-txt-h-sub-project-'.$spj->id]) }}
-                                        <input type="text" value ="{{ $spj->user->id }}" name="user_id" id="data-txt-h-sub-project-{{$spj->id}}" class="hidden form-control" >
-                                        <label for="" class="label-txt-sub-project-{{$spj->id }}"> {{ $spj->user->name }} </label>
-
-                                        </td>
-                                    <td>
-
-                                        {{ Form::select('active', array('1' => 'Activo', '0' => 'Inativo'), $spj->active  ,['class' =>'form-control hidden '.''. 'data-txt-sub-project-'.$spj->id])  }}
-                                        <label for="" class="label-txt-sub-project-{{$spj->id }}">{{ ($spj->active)? 'Activo': 'Inactivo' }} </label>
-
-                                    <td>
-                                        <span data-iden='0' class ='glyphicon-default glyphicon glyphicon-pencil edit-project' data-id="{{ $spj->id }}" data-name="sub-project"></span>
-                                        <span class ='glyphicon-warning glyphicon glyphicon-remove project-r-{{ $pj->id }}'></span>
-                                    </td>
-                                    {{ Form::close()  }}
-                                </tr>
-                            @endforeach
-                            <tr id="table-sub-projects" class="hidden">
-                                {{ Form::open(['id' =>'form-sub-project-'.$spj->id ])  }}
-                                <td>
-                                    {{ Form::text('proyecto', ''  ,['class' =>'form-control']) }}
-                                    {{ Form::text('id', '',['class' =>'form-control hidden']) }}
-                                </td>
-                                <td>
-                                    {{ Form::text('sub_proyecto', '' ,['class' =>'form-control']) }}
-                                </td>
-                                <td>
-                                    {{ Form::text('description','',['class' =>'form-control']) }}
-                                </td>
-                                <td>
-                                    {{ Form::text('user_id', '',['class' =>'typeahead form-control','data-txt-hidden' => 'data-txt-h-sub-project-default']) }}
-                                    <input type="text" value ="" name="user_id" id="data-txt-h-sub-project-default" class=" form-control hidden" >
-                                </td>
-                                <td>
-
-                                    {{ Form::select('active', array('1' => 'Activo', '0' => 'Inativo'), 1 ,['class' =>'form-control'])  }}
-                                <td>
-                                    <span data-iden='0' class ='glyphicon-default glyphicon glyphicon-pencil edit-project' data-id="default" data-name="sub-project"></span>
-                                    <span class ='glyphicon-warning glyphicon glyphicon-remove project-r-'></span>
-                                </td>
-                            </tr>
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <span data-iden='0'  class ='glyphicon-success glyphicon glyphicon-plus-sign add-row' data-name="sub-projects">Agregar</span>
-                                </td>
-                            </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                <!-- Termina  apartado de sub proyectos -->
-
-                <!-- Inicia apartado de Viajes -->
-                    <div class=" well-small clearfix">
-                        <div class="span6">
-                            <label class="label_icon glyphicon glyphicon-plane" for="Proyectos"> Viaje </label>
-                        </div>
-                    </div>
-
-                    <div class=" clearfix">
-                        <table class="table  table-sm">
-                            <thead class="table-info">
-                            <tr>
-
-                                <th>Cuenta Viajes</th>
-                                <th>Proyecto</th>
-                                <th>Sub Proyecto</th>
-                                <th>Asignado a</th>
-                                <th>Monto Maximo a Autorizar</th>
-                                <th>Status</th>
-                            </tr>
-                            </thead>
-                            <tbody id="table-travels">
-                            @foreach($travel as $tr)
-                                <tr>
-                                    {{ Form::open(['id' =>'form-travel-'.$tr->id ])  }}
-                                    <td>
-                                        {{ Form::text('travel_account', $tr->travel_account  ,['class' =>'form-control hidden '.''. 'data-txt-travel-'.$tr->id]) }}
-                                        <label for="" class="label-txt-travel-{{$tr->id }}"> {{ $tr->travel_account }} </label>
-
-                                    </td>
-                                    <td>
-                                        {{ Form::text('proyecto', $tr->project->name  ,['class' =>'form-control hidden '.''. 'data-txt-travel-'.$tr->id]) }}
-                                        <label for="" class="label-txt-travel-{{$tr->id }}"> {{ $tr->project->name  }} </label>
-                                    </td>
-                                    <td>
-                                        {{ Form::text('Sub_proyecto', $tr->subproject->name ,['class' =>'form-control hidden '.''. 'data-txt-travel-'.$tr->id]) }}
-                                        <label for="" class="label-txt-travel-{{$tr->id }}"> {{ $tr->subproject->name  }} </label>
-                                    </td>
-                                    <td>
-                                        {{ Form::text('user_id', $tr->user->name ,['class' =>'typeahead form-control hidden '.''. 'data-txt-travel-'.$tr->id,'data-txt-hidden' => 'data-txt-h-travel-'.$tr->id]) }}
-                                        <input type="text" value="{{ $tr->user->id }}" name="user_id" id="data-txt-h-travel-{{$tr->id}}" class="hidden form-control">
-                                        <label for="" class="label-txt-travel-{{$tr->id }}"> {{ $tr->user->name }} </label>
-                                    </td>
-                                    <td>
-                                        {{ Form::text('monto', $tr->amount ,['class' =>'form-control hidden '.''. 'data-txt-travel-'.$tr->id]) }}
-                                        <label for="" class="label-txt-travel-{{$tr->id }}"> {{ $tr->amount }} </label>
-                                    </td>
-                                    <td>
-                                        {{ Form::select('active', array('1' => 'Activo', '0' => 'Inativo'), $tr->active  ,['class' =>'form-control hidden '.''. 'data-txt-travel-'.$tr->id])  }}
-                                        <label for="" class="label-txt-travel-{{$tr->id }}">{{ ($tr->active)? 'Activo': 'Inactivo' }}
-                                    </td>
-                                    <td>
-                                        <span data-iden='0' class ='glyphicon-default glyphicon glyphicon-pencil edit-project' data-id="{{ $tr->id }}" data-name="travel"></span>
-                                        <span class ='glyphicon-warning glyphicon glyphicon-remove project-r-{{ $tr->id }}'></span>
-                                    </td>
-                                    {{ Form::close()  }}
-                                </tr>
-                            @endforeach
-                                <tr>
-                                    {{ Form::open(['id' =>'form-travel-'.$tr->id ])  }}
-                                    <td>
-                                        {{ Form::text('travel_account', $tr->travel_account  ,['class' =>'form-control hidden '.''. 'data-txt-travel-'.$tr->id]) }}
-                                        <label for="" class="label-txt-travel-{{$tr->id }}"> {{ $tr->travel_account }} </label>
-
-                                    </td>
-                                    <td>
-                                        {{ Form::text('proyecto', $tr->project->name  ,['class' =>'form-control hidden '.''. 'data-txt-travel-'.$tr->id]) }}
-                                        <label for="" class="label-txt-travel-{{$tr->id }}"> {{ $tr->project->name  }} </label>
-                                    </td>
-                                    <td>
-                                        {{ Form::text('Sub_proyecto', $tr->subproject->name ,['class' =>'form-control hidden '.''. 'data-txt-travel-'.$tr->id]) }}
-                                        <label for="" class="label-txt-travel-{{$tr->id }}"> {{ $tr->subproject->name  }} </label>
-                                    </td>
-                                    <td>
-                                        {{ Form::text('user_id', $tr->user->name ,['class' =>'typeahead form-control hidden '.''. 'data-txt-travel-'.$tr->id,'data-txt-hidden' => 'data-txt-h-travel-'.$tr->id]) }}
-                                        <input type="text" value="{{ $tr->user->id }}" name="user_id" id="data-txt-h-travel-{{$tr->id}}" class="hidden form-control">
-                                        <label for="" class="label-txt-travel-{{$tr->id }}"> {{ $tr->user->name }} </label>
-                                    </td>
-                                    <td>
-                                        {{ Form::text('monto', $tr->amount ,['class' =>'form-control']) }}
-                                    </td>
-                                    <td>
-                                        {{ Form::select('active', array('1' => 'Activo', '0' => 'Inativo'), $tr->active  ,['class' =>'form-control'])  }}
-                                    </td>
-                                    <td>
-                                        <span data-iden='0' class ='glyphicon-default glyphicon glyphicon-pencil edit-project' data-id="default" data-name="travel"></span>
-                                        <span class ='glyphicon-warning glyphicon glyphicon-remove project-r-{{ $tr->id }}'></span>
-                                    </td>
-                                    {{ Form::close()  }}
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>
-                                        <span data-iden='0' class ='glyphicon-success glyphicon glyphicon-plus-sign add-row' data-name="travels">Agregar</span>
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                <!-- Termina apartado de Viajes -->
-
             </div>
+            <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"> Crear Proyecto</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ Form::open(['id'=>'form_id']) }}
+                        <div class='form-group required'>
+                            <label for="" class="control-label">Nombre:</label>
+                            {{ Form::text('nombre','',['class' => 'form-control']) }}
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label">Descripcion</label>
+                            {{ Form::textarea('descripcion','',['class' => 'form-control']) }}
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="control-label">Activo</label>
+                            {{ Form::select('activo', array('1' => 'Activo', '0' => 'Inactivo'), 1) }}
+                        </div>
+                        <div class="form-group">
+                            <input type="button" value="Guardar" class="btn btn-sm btn-success">
+                        </div>
+                        {{ Form::close() }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
             <div id="script">
                 <script>
-                    $(document).ready(function(){
-                        $(".typeahead").typeahead({
-                            input: '.typeahead',
-                            source: function (query, process) {
+                    function isNumber(n) {
+                        return !isNaN(parseFloat(n)) && isFinite(n);
+                    }
 
-                                return $.get('{{ route('autocomplete') }}', { query: query }, function (data) {
-                                    return process(data);
-                                });
-                            },
-                            autoSelect: true,
-                            updater: function(item) {
-                                $attrEl = this.$element.attr("data-txt-hidden");
-                                $('#'+$attrEl).val(item.id)
+                    function setFontSize(el) {
+                        var fontSize = el.val();
 
-
-
-                               /* $(".typeahead > ul > input").val('hola');
-                                console.log($(this).attr('data-txt-hidden'));*/
-                                return item;
-                            }
-
-                        });
-
-                        $('.edit-project').unbind().bind('click',function(){
-                            $name= $(this).attr('data-name');
-                            if($(this).attr('data-iden') == 0){
-                                $(this).addClass('glyphicon-success');
-                                $(this).removeClass('glyphicon-pencil');
-                                $(this).addClass('glyphicon-floppy-disk');
-                                $(this).removeClass('glyphicon-default');
-                                $(this).attr('data-iden',1);
-                                $('.data-txt-'+$name+'-'+$(this).attr('data-id')).removeClass('hidden');
-                                $('.label-txt-'+$name+'-'+$(this).attr('data-id')).addClass('hidden');
-                            }else{
-
-                                $seri = $('#form-'+$name+'-'+$(this).attr('data-id')).serialize();
-                                console.log('#form-'+$name+'-'+$(this).attr('data-id'));
-                                console.log($seri);
-                                $.ajax({
-                                    url : '{{ route('project.create') }}',
-                                    type:'GET',
-                                    data: $('#form-'+$name+'-'+$(this).attr('data-id')).serialize(),
-                                    dataType: 'json',
-                                    success:function(msj){
-
-                                    },error:function(data){
-
-                                    }
-                                });
-                            }
-
-                        });
-
-                        $('.add-row').unbind().bind('click',function(){
-                            $(this).attr('data-name');
-                            $tableHtml= $('#table-'+$(this).attr('data-name')).html();
-                            $('#table-'+$(this).attr('data-name')).removeClass('hidden');
-                            console.log('#table-'+$(this).attr('data-name'));
-                            $script=$('#script').html();
-                            if($(this).attr('data-iden') == 0) {
-                                /*$htmlNew = $tableHtml + EvatNameEvento($(this).attr('data-name')) + $script;
-                                $(this).attr('data-iden',1);
-                                alert('iffff');*/
-                            }else{
-                                $htmlNew = $tableHtml + EvatNameEvento($(this).attr('data-name'));
-                                alert('else');
-                            }
-                            /*console.log(EvatNameEvento($(this).attr('data-name')));*/
-                           /* $('#table-'+$(this).attr('data-name')).html($htmlNew);*/
-
-                        });
-                        function EvatNameEvento(nameEvent){
-
-                            if(nameEvent == 'projects'){
-
-                                return formProject();
-
-                            }else if(nameEvent == 'sub-projects'){
-
-                                return formSubproject();
-                            }else{
-                                return formTravel();
-                            }
+                        if ( isNumber(fontSize) && fontSize >= 0.5 ) {
+                            $('body').css({ fontSize: fontSize + 'em' });
+                        } else if ( fontSize ) {
+                            el.val('1');
+                            $('body').css({ fontSize: '1em' });
                         }
+                    }
 
-                        function formProject(){
-                            $random = Math.floor((Math.random() * 100000) + 1);
+                    $(function() {
+                        $('#fontSize')
+                            .bind('change', function(){ setFontSize($(this)); })
+                            .bind('keyup', function(e){
+                                if (e.keyCode == 27) {
+                                    $(this).val('1');
+                                    $('body').css({ fontSize: '1em' });
+                                } else {
+                                    setFontSize($(this));
+                                }
+                            });
 
-                            /*return $html =
-                                    '<form action="" method="POST" id="prueb-id>'+
-                                    '{{ csrf_field() }}'+
-                                    '<td>{{ Form::text('name', '' ,['class' =>'form-control ', 'data-txt-']) }}</td>'+
-                                    '<td>{{ Form::text('description', '' ,['class' =>'form-control', 'data-txt-']) }}</td>'+
-                                    '<td>{{ Form::text('user_id', '',['class' =>'typeahead form-control','data-txt-']) }}</td>'+
-                                    '<td> {{ Form::select('active', array('1' => 'Activo', '0' => 'Inativo'),1,['class' =>'form-control '])  }}</td>'+
-                                    '<td>' +
-                                    '<span data-iden="1"  class ="glyphicon-success glyphicon glyphicon-floppy-disk edit-project" data-id="'+ $random+'" data-name="project"></span>'+
-                                    '<span class ="glyphicon-warning glyphicon glyphicon-remove project-r-"></span></td>' +
-                                    '</form>';*/
-                        }
+                        $(window)
+                            .bind('keyup', function(e){
+                                if (e.keyCode == 27) {
+                                    $('#fontSize').val('1');
+                                    $('body').css({ fontSize: '1em' });
+                                }
+                            });
 
-
-                        function formSubproject(){
-                            return $html ='<tr><td>{{ Form::text('proyecto', '' ,['class' =>'form-control ', 'data-txt-']) }}</td>'+
-                                    '<td>{{ Form::text('subproyecto', '' ,['class' =>'form-control', 'data-txt-']) }}</td>'+
-                                    '<td>{{ Form::text('description', '',['class' =>'form-control','data-txt-']) }}</td>'+
-                                    '<td>{{ Form::text('user_id', '',['class' =>'typeahead form-control','data-txt-']) }}</td>'+
-                                    '<td> {{ Form::select('active', array('1' => 'Activo', '0' => 'Inativo'),1,['class' =>'form-control '])  }}</td>'+
-                                    '<td><span data-iden="1" class ="glyphicon-success glyphicon glyphicon-floppy-disk edit-project" data-id=""></span><span class ="glyphicon-warning glyphicon glyphicon-remove project-r-"></span></td>'+
-                                    '</tr>';
-
-                        }
-
-                        function formTravel(){
-                            return $html ='<tr>' +
-                                    '<td>{{ Form::text('cuenta viajes', '' ,['class' =>'form-control ', 'data-txt-']) }}</td>'+
-                                    '<td>{{ Form::text('proyecto', '' ,['class' =>'form-control ', 'data-txt-']) }}</td>'+
-                                    '<td>{{ Form::text('subproyecto', '' ,['class' =>'form-control', 'data-txt-']) }}</td>'+
-                                    '<td>{{ Form::text('user_id', '',['class' =>'typeahead form-control','data-txt-']) }}</td>'+
-                                    '<td>{{ Form::text('amount', '',['class' =>'form-control','data-txt-']) }}</td>'+
-                                    '<td> {{ Form::select('active', array('1' => 'Activo', '0' => 'Inativo'),1,['class' =>'form-control '])  }}</td>'+
-                                    '<td><span data-iden="1" class ="glyphicon-success glyphicon glyphicon-floppy-disk edit-project" data-id=""></span><span class ="glyphicon-warning glyphicon glyphicon-remove project-r-"></span></td>'+
-                                    '<td><span data-iden="1" class ="glyphicon-success glyphicon glyphicon-floppy-disk edit-project" data-id=""></span><span class ="glyphicon-warning glyphicon glyphicon-remove project-r-"></span></td>'+
-                                    '</tr>';
-                        }
                     });
+
+                    $(document).ready(function(){
+                        $('.add_project').unbind().bind('click', function(){
+                            alert('add project');
+                            $('#form_id').html();
+
+                            $('#form_id').html(formProject());
+                        });
+
+
+                        $('.tree_label').unbind().bind('click', function(){
+                            $data_type = $(this).attr('data-type');
+                            $id = $(this).attr('data-id');
+                            $route="";
+                            switch(parseInt($data_type)){
+                                case 1:
+                                    $route = "{{ url('project/') }}"+"/"+$id;
+                                    break;
+                                case 2:
+                                    $route = "{{ url('sub_project/') }}"+"/"+$id;
+                                    break;
+                                case 3:
+                                    $route = "{{ url('travel/') }}"+"/"+$id;
+                                    break;
+                                default:
+                            }
+
+
+                            alert($route);
+
+                            $.ajax({
+                                url : $route,
+                                type:'GET',
+                                dataType: 'json',
+                                success:function(data){
+                                    console.log(data.user);
+
+                                },error:function(data){
+
+                                }
+                            });
+
+
+
+                        });
+                    });
+
+                    function formProject(){
+                        $html='';
+                        $html +='{{ Form::open(['id'=>'form_id']) }}'+
+                            "<div class='form-group'>" +
+                            "<label class='control-label'>Nombre:</label>"+
+                                '{{ Form::text('nombre','',['class' => 'form-control']) }}'+
+                            "</div> <div class='form-group'>"+
+                            "<label  class='control-label'>Descripcion</label>"+
+                                '{{ Form::textarea('descripcion','',['class' => 'form-control']) }}'+
+                            "</div>"+
+                            "<div class='form-group'>"+
+                            "<label class='control-label'>Activo</label>"+
+                                '{{ Form::select('activo', array('1' => 'Activo', '0' => 'Inactivo'), 1) }}'+
+                            "</div>"+
+                            "<div class='form-group'>"+
+                            "<input type='button' value='Guardar' class='btn btn-sm btn-success'>"+
+                            "</div>"+
+                            '{{ Form::close() }}';
+                            return $html;
+                    }
                 </script>
             </div>
 
-            {{--<a href="#" id="Element"> Este es a crear </a>--}}
+    {{--<a href="#" id="Element"> Este es a crear </a>--}}
 @endsection

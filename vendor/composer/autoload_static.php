@@ -14,9 +14,9 @@ class ComposerStaticInita95c3fdb569e21e3fefc5987f4268c9b
         '5255c38a0faeba867671b61dfda6d864' => __DIR__ . '/..' . '/paragonie/random_compat/lib/random.php',
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
         'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
+        '4a1f389d6ce373bda9e57857d3b61c84' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/helpers.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
-        '4a1f389d6ce373bda9e57857d3b61c84' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -305,7 +305,7 @@ class ComposerStaticInita95c3fdb569e21e3fefc5987f4268c9b
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\ProjectController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProjectController.php',
         'App\\Http\\Controllers\\SubProjectController' => __DIR__ . '/../..' . '/app/Http/Controllers/SubProjectController.php',
-        'App\\Http\\Controllers\\TravelControllerController' => __DIR__ . '/../..' . '/app/Http/Controllers/TravelControllerController.php',
+        'App\\Http\\Controllers\\TravelController' => __DIR__ . '/../..' . '/app/Http/Controllers/TravelController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
@@ -320,7 +320,6 @@ class ComposerStaticInita95c3fdb569e21e3fefc5987f4268c9b
         'App\\Role' => __DIR__ . '/../..' . '/app/Role.php',
         'App\\SubProject' => __DIR__ . '/../..' . '/app/SubProject.php',
         'App\\Travel' => __DIR__ . '/../..' . '/app/Travel.php',
-        'App\\TravelController' => __DIR__ . '/../..' . '/app/TravelController.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'Barryvdh\\Debugbar\\Console\\ClearCommand' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/Console/ClearCommand.php',
         'Barryvdh\\Debugbar\\Console\\PublishCommand' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/Console/PublishCommand.php',
@@ -2541,6 +2540,7 @@ class ComposerStaticInita95c3fdb569e21e3fefc5987f4268c9b
         'Psy\\CodeCleaner\\NamespacePass' => __DIR__ . '/..' . '/psy/psysh/src/Psy/CodeCleaner/NamespacePass.php',
         'Psy\\CodeCleaner\\NoReturnValue' => __DIR__ . '/..' . '/psy/psysh/src/Psy/CodeCleaner/NoReturnValue.php',
         'Psy\\CodeCleaner\\PassableByReferencePass' => __DIR__ . '/..' . '/psy/psysh/src/Psy/CodeCleaner/PassableByReferencePass.php',
+        'Psy\\CodeCleaner\\RequirePass' => __DIR__ . '/..' . '/psy/psysh/src/Psy/CodeCleaner/RequirePass.php',
         'Psy\\CodeCleaner\\StaticConstructorPass' => __DIR__ . '/..' . '/psy/psysh/src/Psy/CodeCleaner/StaticConstructorPass.php',
         'Psy\\CodeCleaner\\StrictTypesPass' => __DIR__ . '/..' . '/psy/psysh/src/Psy/CodeCleaner/StrictTypesPass.php',
         'Psy\\CodeCleaner\\UseStatementPass' => __DIR__ . '/..' . '/psy/psysh/src/Psy/CodeCleaner/UseStatementPass.php',

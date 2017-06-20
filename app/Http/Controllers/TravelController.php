@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\TravelController;
 use Illuminate\Http\Request;
-
-class TravelControllerController extends Controller
+use App\Travel;
+class TravelController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,21 +40,24 @@ class TravelControllerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\TravelController  $travelController
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(TravelController $travelController)
+    public function show($id)
     {
-        //
+        $data = Travel::find($id);
+        $datUse = Travel::find($id);
+        $data['use'] = $datUse->user->name;
+        return $data;
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\TravelController  $travelController
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(TravelController $travelController)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +66,10 @@ class TravelControllerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\TravelController  $travelController
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TravelController $travelController)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +77,10 @@ class TravelControllerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\TravelController  $travelController
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TravelController $travelController)
+    public function destroy($id)
     {
         //
     }

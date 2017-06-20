@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\SubProject;
 use Illuminate\Http\Request;
 
 class SubProjectController extends Controller
@@ -45,7 +46,10 @@ class SubProjectController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = SubProject::find($id);
+        $datUse = SubProject::find($id);
+        $data['use'] = $datUse->user->name;
+        return $data;
     }
 
     /**

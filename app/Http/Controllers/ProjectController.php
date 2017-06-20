@@ -20,16 +20,35 @@ class ProjectController extends Controller
         //dd($pro->user->name);
 
         $projects =  Project::all();
-        $subproject = SubProject::all();
-        $travel = Travel::all();
+        //$subproject = SubProject::all();
+        //$travel = Travel::all();
+        $array =[];
+        $i=0;
 
-
-       /* $travel = Travel::find(2);
-        dd($travel->subproject);*/
-        //dd($travel);
-        //dd($projects->user());
-            //dd($subproject);
-        return view('admin.project',['projects' => $projects,'subproject' => $subproject,'travel' => $travel]);
+        foreach($projects as $pro){
+            $array[$i]['proyectos']=[];
+            $array[$i]['proyectos']['id'] =$pro->id;
+            $array[$i]['proyectos']['name'] =$pro->name;
+                $subproject = SubProject::where('project_id',$pro->id)->get();
+            $i2 =0;
+            $array[$i]['sub_proyectos']=[];
+            $array[$i]['travel']=[];
+                foreach ($subproject as $sub){
+                    $array[$i]['sub_proyectos'][$i2]['id'] =$sub->id;
+                    $array[$i]['sub_proyectos'][$i2]['name'] =$sub->name;
+                        $travel = Travel::where('sub_project_id',$sub->id)->get();
+                        $i3=0;
+                        foreach($travel as $tra){
+                            $array[$i]['travel'][$i3]['id'] =$tra->id;
+                            $array[$i]['travel'][$i3]['name'] =$tra->travel_account;
+                            $i3++;
+                        }
+                    $i2++;
+                }
+            $i++;
+        }
+        //dd($array);
+        return view('admin.project',['projects' => $array]);
     }
 
     /**
@@ -81,7 +100,10 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Project::find($id)->toArray();
+        $datUse = Project::find($id);
+        $data['use'] = $datUse->user->name;
+        return $data;
     }
 
     /**
