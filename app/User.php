@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
-    protected  $table='users';
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','role_id'
+        'name', 'email', 'password',
     ];
 
     /**
@@ -28,16 +27,5 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function projects(){
-        return $this->hasMany('App\Project');
-    }
-
-    public function subprojects(){
-        return $this->hasMany('App\SubProject');
-    }
-
-    public function travels(){
-        return $this->hasMany('App\SubProject');
-    }
 
 }

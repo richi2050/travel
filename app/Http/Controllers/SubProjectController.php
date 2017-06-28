@@ -14,7 +14,8 @@ class SubProjectController extends Controller
      */
     public function index()
     {
-        //
+        $data = SubProject::all();
+        return response()->json($data);
     }
 
     /**
@@ -35,7 +36,12 @@ class SubProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        SubProject::create([
+            'name'          =>$request->name,
+            'description'   =>$request->description,
+            'project_id'    =>$request->project_id]);
+
+        return response()->json(['success' => true]);
     }
 
     /**
@@ -47,9 +53,7 @@ class SubProjectController extends Controller
     public function show($id)
     {
         $data = SubProject::find($id);
-        $datUse = SubProject::find($id);
-        $data['use'] = $datUse->user->name;
-        return $data;
+        return response()->json($data);
     }
 
     /**

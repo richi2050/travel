@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Travel;
+
 class TravelController extends Controller
 {
     /**
@@ -13,7 +14,8 @@ class TravelController extends Controller
      */
     public function index()
     {
-        //
+        $data = Travel::all();
+        return response()->json($data);
     }
 
     /**
@@ -34,7 +36,15 @@ class TravelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = Travel::create([
+            'name'          =>$request->name,
+            'description'   =>$request->description,
+            'project_id'    =>$request->project_id,
+            'sub_project_id'=>$request->sub_project_id,
+            'amount'        =>$request->amount
+        ]);
+
+        return response()->json(['success' => true ]);
     }
 
     /**
@@ -46,9 +56,7 @@ class TravelController extends Controller
     public function show($id)
     {
         $data = Travel::find($id);
-        $datUse = Travel::find($id);
-        $data['use'] = $datUse->user->name;
-        return $data;
+        return response()->json($data);
     }
 
     /**
