@@ -17,5 +17,7 @@
     <orderEntry type="module" module-name="api" />
     <orderEntry type="module" module-name="cpaaccess" />
     <orderEntry type="module" module-name="laravel" />
+    <orderEntry type="module" module-name="blog" />
+    <orderEntry type="module" module-name="blog" />
   </component>
 </module>
