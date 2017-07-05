@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +14,16 @@ use Illuminate\Http\Request;
 */
 
 Route::post('/login','HomeController@getData');
-Route::resource('travel','TravelController');
-Route::resource('project','ProjectController');
-Route::resource('subproject','SubProjectController');
+Route::get('/login/cpaccess','Auth\LoginController@login');
+
+Route::post('prueba','HomeController@prueba')->name('token');
+
+Route::group(['middleware' => ['token']], function () {
+
+    Route::resource('travel','TravelController');
+    Route::resource('project','ProjectController');
+    Route::resource('subproject','SubProjectController');
+
+});
+
+

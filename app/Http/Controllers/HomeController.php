@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use Mockery\Exception;
+use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 
 class HomeController extends Controller
 {
@@ -74,5 +77,30 @@ class HomeController extends Controller
     }
   }
 }*/
+    }
+
+    public static function prueba($header){
+        try {
+            $client = new Client();
+            $body =[];
+            $body['username'] = "xyz";
+            $body['token'] ='bearer '.$header;
+            $url= 'http://cpaaccess.cpalumis.com.mx/api/usuario/validaToken';
+            $response = $client->post($url, ['headers'=>
+                [
+                    'Authorization' => $body['token']
+                ]]);
+            $zonerStatusCode = $response->getStatusCode();
+            $zonerResponse = json_decode($response->getBody());
+        } catch (\Exception $e) {
+            $messesage = $e->getMessage();
+            if(strpos($messesage,'token_invalid') !== FALSE){
+                return response()->json(['error' => false,'message' =>'token_invalid']);
+            }else if(strpos($messesage,'token_expired') !== FALSE){
+                return response()->json(['error' => false,'message' =>'token_expired']);
+            }else{
+                return response()-jason(['error' => false,'message' =>'algo_paso']);
+            }
+        }
     }
 }
