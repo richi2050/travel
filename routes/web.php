@@ -11,18 +11,10 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
-
-Route::get('/business', 'BusinessController@index')->name('business');
-
-Route::get('/project','ProjectController@index')->name('project');
-
-Route::resource('/project', 'ProjectController');
-Route::resource('/sub_project', 'SubProjectController');
-
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get("autocomplete",'HomeController@autocomplete')->name('autocomplete');

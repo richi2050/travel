@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Project;
-use App\SubProject;
-use App\Travel;
+use Illuminate\Http\Request;
+use App\Http\Controllers\HomeController;
+use Validator;
 
 class ProjectController extends Controller
 {
@@ -16,20 +16,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //$pro = Project::where('id',1)->toSql();
-        //dd($pro->user->name);
-
-        $projects =  Project::all();
-        $subproject = SubProject::all();
-        $travel = Travel::all();
-
-
-       /* $travel = Travel::find(2);
-        dd($travel->subproject);*/
-        //dd($travel);
-        //dd($projects->user());
-            //dd($subproject);
-        return view('admin.project',['projects' => $projects,'subproject' => $subproject,'travel' => $travel]);
+        $data = Project::all();
+        return response()->json($data);
     }
 
     /**
@@ -37,29 +25,9 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        //dd($request->all());
-        $pro = Project::find($request->id);
-
-        if($pro){
-
-            $pro->name          = $request->name;
-            $pro->description   = $request->description;
-            $pro->user_id       = $request->user_id;
-            $pro->active        = $request->active;
-            $pro->save();
-
-        }else{
-            Project::create([
-                'name'          =>$request->name,
-                'description'   =>$request->description,
-                'user_id'       =>$request->user_id ,
-                'active'        => $request->active
-            ]);
-        }
-
-
+        //
     }
 
     /**
@@ -70,7 +38,21 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $val =Validator::make($request->all(),
+                [
+                    'name'          => 'required|min:2|max:150|alpha_num_spaces',
+
+                    'description'   => 'required|min:2|max:150|alpha_num_spaces'
+                ]);
+        if($val->fails()){
+           return  response()->json($val->errors());
+        }
+
+         $data= Project::create([
+                    'name'          => $request->name,
+                    'description'   => $request->description,
+                ]);
+        return response()->json(['success' => true]);
     }
 
     /**
@@ -81,7 +63,10 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        //
+        //HomeController::getData(['username'=>'234','password'=>'1234']);
+        $project = Project::find($id);
+
+        return response()->json($project);
     }
 
     /**
@@ -116,9 +101,5 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    static function randon(){
-        return 45;
     }
 }

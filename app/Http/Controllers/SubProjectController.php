@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\SubProject;
 use Illuminate\Http\Request;
-
+use Validator;
 class SubProjectController extends Controller
 {
     /**
@@ -13,7 +14,8 @@ class SubProjectController extends Controller
      */
     public function index()
     {
-        //
+        $data = SubProject::all();
+        return response()->json($data);
     }
 
     /**
@@ -34,7 +36,22 @@ class SubProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $val =Validator::make($request->all(),
+            [
+                'name'          => 'required|min:2|max:150|regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/',
+                'description'   => 'required|min:2|max:150|regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/',
+                'project_id'    => 'required|integer'
+            ]);
+        if($val->fails()){
+            return  response()->json($val->errors());
+        }
+
+        SubProject::create([
+            'name'          =>$request->name,
+            'description'   =>$request->description,
+            'project_id'    =>$request->project_id]);
+
+        return response()->json(['success' => true]);
     }
 
     /**
@@ -45,7 +62,8 @@ class SubProjectController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = SubProject::find($id);
+        return response()->json($data);
     }
 
     /**

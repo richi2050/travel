@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use GuzzleHttp\Client;
 
 class LoginController extends Controller
 {
@@ -35,5 +36,22 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public static function login(){
+        $client = new Client();
+        $body =[];
+        $body['email'] = "ricardo.lugo@cpavs.mx";
+        $body['password'] = "LBZadmOX7T";
+        $body['servicio'] = "1";
+        $body['origen'] = "web";
+        $url= 'http://cpaaccess.cpalumis.com.mx/api/usuario/login';
+
+
+        $response = $client->post($url, ['form_params' => $body]);
+        $zonerStatusCode = $response->getStatusCode();
+        //dd($zonerStatusCode);
+        $zonerResponse = json_decode($response->getBody());
+        dd($zonerResponse);
     }
 }
