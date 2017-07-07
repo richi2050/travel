@@ -13,5 +13,6 @@ class Travel extends Model
         'project_id',
         'sub_project_id',
         'amount',
-        'active'];
+        'active',
+        'business_id'];
 }

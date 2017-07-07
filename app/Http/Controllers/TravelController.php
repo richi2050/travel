@@ -36,12 +36,23 @@ class TravelController extends Controller
      */
     public function store(Request $request)
     {
+        $val =Validator::make($request->all(),
+            [
+                'name'          => 'required|min:2|max:150|alpha_num_spaces|string_exist:travels,name',
+                'description'   => 'required|min:2|max:150|alpha_num_spaces',
+                'project_id'    => 'required|integer',
+                'business_id'   => 'required|integer',
+            ]);
+        if($val->fails()){
+            return  response()->json($val->errors());
+        }
         $data = Travel::create([
-            'name'          =>$request->name,
-            'description'   =>$request->description,
-            'project_id'    =>$request->project_id,
-            'sub_project_id'=>$request->sub_project_id,
-            'amount'        =>$request->amount
+            'name'          =>  $request->name,
+            'description'   =>  $request->description,
+            'project_id'    =>  $request->project_id,
+            'sub_project_id'=>  $request->sub_project_id,
+            'amount'        =>  $request->amount,
+            'business_id'   =>  $request->business_id
         ]);
 
         return response()->json(['success' => true ]);

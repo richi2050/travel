@@ -17,9 +17,10 @@ class CreateTravelsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('description');
+            $table->float('amount');
             $table->integer('project_id');
             $table->integer('sub_project_id');
-            $table->float('amount');
+            $table->integer('business_id');
             $table->boolean('active')->default(1);
             $table->timestamps();
 

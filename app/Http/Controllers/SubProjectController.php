@@ -38,18 +38,21 @@ class SubProjectController extends Controller
     {
         $val =Validator::make($request->all(),
             [
-                'name'          => 'required|min:2|max:150|regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/',
-                'description'   => 'required|min:2|max:150|regex:/^([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-])+((\s*)+([0-9a-zA-ZñÑáéíóúÁÉÍÓÚ_-]*)*)+$/',
-                'project_id'    => 'required|integer'
+                'name'          => 'required|min:2|max:150|alpha_num_spaces|string_exist:sub_projects,name',
+                'description'   => 'required|min:2|max:150|alpha_num_spaces',
+                'project_id'    => 'required|integer',
+                'business_id'   => 'required|integer',
             ]);
         if($val->fails()){
             return  response()->json($val->errors());
         }
 
         SubProject::create([
-            'name'          =>$request->name,
-            'description'   =>$request->description,
-            'project_id'    =>$request->project_id]);
+            'name'          =>  $request->name,
+            'description'   =>  $request->description,
+            'project_id'    =>  $request->project_id,
+            'business_id'   =>  $request->business_id
+        ]);
 
         return response()->json(['success' => true]);
     }

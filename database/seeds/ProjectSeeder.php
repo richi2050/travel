@@ -20,6 +20,7 @@ class ProjectSeeder extends Seeder
             Project::create([
                 'name' => 'Nombre del proyecto'.$i,
                 'description' =>'Descripción proyecto '.$i,
+                'business_id'   => 1
             ]);
         }
     }

@@ -10,6 +10,7 @@ class SubProject extends Model
         'name',
         'description',
         'project_id',
-        'active'
+        'active',
+        'business_id'
     ];
 }

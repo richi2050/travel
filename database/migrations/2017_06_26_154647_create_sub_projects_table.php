@@ -18,6 +18,7 @@ class CreateSubProjectsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->bigInteger('project_id');
+            $table->integer('business_id');
             $table->boolean('active')->default();
             $table->timestamps();
         });

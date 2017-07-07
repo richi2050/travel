@@ -26,6 +26,7 @@ class TravelSeeder extends Seeder
                 'description' =>'Descripcion de '.$i,
                 'project_id'     => $faker->numberBetween(1,$counProject),
                 'sub_project_id' => $faker->numberBetween(1,$counSubProject),
+                'business_id'   => 1,
                 'amount'         => $faker->randomFloat(3, 0, 1000)
             ]);
         }

@@ -22,7 +22,8 @@ class SubprojectSeeder extends Seeder
             SubProject::create([
                 'name' => 'Nombre del sub proyecto'.$i,
                 'description' =>'Descripcion de '.$i,
-                'project_id' => $faker->numberBetween(1,$counProject)
+                'project_id' => $faker->numberBetween(1,$counProject),
+                'business_id'   => 1
             ]);
         }
     }

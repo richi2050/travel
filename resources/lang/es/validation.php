@@ -90,6 +90,7 @@ return [
     'uploaded'             => 'El elemento :attribute fallo al subir.',
     'url'                  => 'El formato de :attribute no corresponde con el de una URL válida.',
     'alpha_num_spaces'     => 'El campo :attribute debe contener numeros, letras y espacios',
+    'string_exist'         => 'El campo :attribute existe',
 
     /*
     |--------------------------------------------------------------------------

@@ -40,9 +40,9 @@ class ProjectController extends Controller
     {
         $val =Validator::make($request->all(),
                 [
-                    'name'          => 'required|min:2|max:150|alpha_num_spaces',
-
-                    'description'   => 'required|min:2|max:150|alpha_num_spaces'
+                    'name'          => 'required|min:2|max:150|alpha_num_spaces|string_exist:projects,name',
+                    'description'   => 'required|min:2|max:150|alpha_num_spaces',
+                    'business_id'   => 'required|integer'
                 ]);
         if($val->fails()){
            return  response()->json($val->errors());
@@ -51,6 +51,7 @@ class ProjectController extends Controller
          $data= Project::create([
                     'name'          => $request->name,
                     'description'   => $request->description,
+                    'business_id'   => $request->business_id
                 ]);
         return response()->json(['success' => true]);
     }
