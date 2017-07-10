@@ -1,11 +1,11 @@
 <?php
+
 namespace App\Http\Middleware;
 
 use Closure;
 use GuzzleHttp\Client;
-use Request;
 
-class AuthToken
+class AuthSession
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,15 @@ class AuthToken
      */
     public function handle($request, Closure $next)
     {
+
         try {
+            $user_id = $request->session()->get('user_id');
+            $token = $request->session()->get('token');
+            echo $user_id;
+            echo $token;
             $client = new Client();
             $body =[];
-            $body['token'] ='bearer '.$request->header('authorization');
+            $body['token'] ='bearer '.$token;
             $url= 'http://cpaaccess.cpalumis.com.mx/api/usuario/validaToken';
             $response = $client->post($url, ['headers'=>
                 [
@@ -31,14 +36,17 @@ class AuthToken
         } catch (\Exception $e) {
             $messesage = $e->getMessage();
             if(strpos($messesage,'token_invalid') !== FALSE){
-                dd(json_encode(['error' => false,'message' =>'token_invalid']));
-                //response()->json(['error' => false,'message' =>'token_invalid']);
+                //dd('entra 11111111');
+                return redirect('/');
+                //return view('home');
             }else if(strpos($messesage,'token_expired') !== FALSE){
-                dd(json_encode(['error' => false,'message' =>'token_expired']));
-                //return response()->json(['error' => false,'message' =>'token_expired']);
+                //return view('home');
+                //dd('entra dos');
+                return redirect('/');
             }else{
-                dd(json_encode(['error' => false,'message' =>'algo_paso']));
-                //return response()-jason(['error' => false,'message' =>'algo_paso']);
+                //dd('entra 3');
+                return redirect('/');
+                //return view('home');
             }
         }
     }

@@ -1,0 +1,55 @@
+.navbar{
+    min-height: 100px;
+}
+
+body{
+    background-color: white;
+}
+
+.panel {
+    box-shadow: 0 1px 1px rgba(0,0,0,0);
+    border: 0px solid transparent;
+}
+
+#logo_header {
+     display: block;
+     position: absolute;
+     width: auto;
+     height:60px;
+     top:   25px;
+     left: 10%;
+ }
+
+.title_name{
+    margin-top: 40px;
+}
+
+.label_icon{
+    color: green;
+    font-size:23px;
+}
+
+
+.glyphicon {
+    cursor: pointer;
+}
+
+.glyphicon-success{
+    color: green;
+}
+
+.glyphicon-warning{
+    color: red;
+}
+
+.glyphicon-danger{
+    color:yellow;
+}
+
+.glyphicon-default{
+    color:darkblue;
+}
+
+.hidden{
+    display: none;
+}

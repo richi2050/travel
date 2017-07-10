@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Mockery\Exception;
-use Tymon\JWTAuth\Exceptions\JWTException;
-use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Session;
 
 class HomeController extends Controller
 {
@@ -17,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        //$this->middleware('auth.session')->only('index');
     }
 
     /**
@@ -27,8 +26,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+
+        if(Session::get('user_id') != '' && Session::get('token') != ''){
+            return view('home');
+        }
+        return view('auth.login');
     }
+
+
 
     public static function getData(Request $request){
         $client = new Client();
