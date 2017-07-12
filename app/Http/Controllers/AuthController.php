@@ -56,19 +56,7 @@ class AuthController extends Controller
             if($zonerResponse->success){
                 $request->session()->put('user_id', $zonerResponse->request->user_id );
                 $request->session()->put('token',$zonerResponse->request->token );
-
-                $urlBussines = "http://cpaaccess.cpalumis.com.mx/api/usuario/businessListing";
-                $responseBussines = $client->post($urlBussines, [
-                                        'headers'=> [
-                                            'Content-Type' => 'application/json',
-                                            'Authorization'=> 'bearer '.$zonerResponse->request->token
-                                        ]
-                                    ]);
-                $zonerStatusCodeBusi = $responseBussines->getStatusCode();
-                $zonerResponseBusi = json_decode($responseBussines->getBody());
-                dd($zonerResponseBusi);
-
-                return view('home');
+                return redirect()->route('list');
             }else{
 
             }
@@ -126,6 +114,11 @@ class AuthController extends Controller
     public  function logout(){
         Session::forget('user_id');
         Session::forget('token');
+        Session::forget('business_id');
+        Session::forget('goup_id');
+        Session::forget('business_description');
         return redirect('/');
     }
+
+
 }

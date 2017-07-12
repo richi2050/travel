@@ -20,8 +20,8 @@ class AuthSession
         try {
             $user_id = $request->session()->get('user_id');
             $token = $request->session()->get('token');
-            echo $user_id;
-            echo $token;
+            //echo $user_id;
+            //echo $token;
             $client = new Client();
             $body =[];
             $body['token'] ='bearer '.$token;

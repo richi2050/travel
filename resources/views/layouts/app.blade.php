@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     {{--<link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
+    <!--
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 
@@ -21,109 +22,99 @@
             integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
             crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script> -->
 
-    <script src="{{ asset('js/jquery.foggy.min.js') }}"></script>
+
+
+    <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Font Roboto -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <!-- File CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+    <!--Plugin Foggy-->
+
+    <script type="text/javascript" src="{{ asset('js/jquery.foggy.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+
 </head>
 <body>
-<div id="app">
-    <nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid container_head">
+        <div class="row">
+            <div class="col-md-4 col-xs-4">
+                <img src="{{ asset('images/logo_travel.png') }}" alt="CPA Travel" title="CPA Travel" class="img-responsive center-block">
+            </div>
+            <div class="col-md-6 col-xs-8 title_menu center-block no_padding">
+                <div class="box_nom_emp">
+                    @if(Session::get('business_id'))
+                    <div class="col-md-12">Empresa: {{ Session::get('business_description') }}</div>
+                    <div class="col-md-12">Grupo: Nombre Grupo</div>
+                    @endif
+                </div>
+            </div>
+            <div class="col-md-2 col-xs-12">
+                <div class="col-md-12 col-xs-12 menu_btns">
 
-        <div class="navbar-header">
-
-
-            <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="images/logo_travel.png"  id="logo_header" class="img-responsive" alt="Imagen responsive">
-            </a>
-
-
-            <!-- Collapsed Hamburger -->
-        {{--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-            <span class="sr-only">Toggle Navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>--}}
-
-        <!-- Branding Image -->
-
-        </div>
-        <ul class="nav navbar-nav navbar-right">
-            @if (Auth::guest())
-
-            @else
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        {{ Auth::user()->name }} <span class="caret"></span>
-                    </a>
-
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a href="{{ route('logout') }}"
-                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                Logout
+                    <div class="col-md-4 col-xs-4">
+                        @if(Session::get('business_id'))
+                            <a href="{{ route('list') }}">
+                                <img class="center-block" title="Cambio de Empresa" alt="Cambio de Empresa" src="{{ asset('images/cambio_icono.png') }}">
                             </a>
+                        @endif
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        @if(Session::get('token'))
+                            <a href="{{ route('logout_exter') }}">
+                                <img class="center-block" title="Cerrar Sesión" alt="Cerrar Sesión" src="{{ asset('images/cerrar_sesion_icono.png') }}">
+                            </a>
+                        @endif
+                    </div>
+                    <div class="col-md-4 col-xs-4">
+                        <img class="center-block" title="RSS" alt="RSS" src="{{ asset('images/rss_icono.png') }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                {{ csrf_field() }}
-                            </form>
-                        </li>
-                    </ul>
-                </li>
 
-
-            @endif
-        </ul>
-
-        {{-- <div class="collapse navbar-collapse" id="app-navbar-collapse">
-             <!-- Left Side Of Navbar -->
-             <ul class="nav navbar-nav">
-                 &nbsp;
-             </ul>
-
-             <!-- Right Side Of Navbar -->
-             <ul class="nav navbar-nav navbar-right">
-                 <!-- Authentication Links -->
-                 @if (Auth::guest())
-                     <li><a href="{{ route('login') }}">Login</a></li>
-                     <li><a href="{{ route('register') }}">Register</a></li>
-                 @else
-                     <li class="dropdown">
-                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                             {{ Auth::user()->name }} <span class="caret"></span>
-                         </a>
-
-                         <ul class="dropdown-menu" role="menu">
-                             <li>
-                                 <a href="{{ route('logout') }}"
-                                     onclick="event.preventDefault();
-                                              document.getElementById('logout-form').submit();">
-                                     Logout
-                                 </a>
-
-                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                     {{ csrf_field() }}
-                                 </form>
-                             </li>
-                         </ul>
-                     </li>
-                 @endif
-             </ul>
-         </div>--}}
-
-    </nav>
     <div class="container">
         <div class="row">
             @yield('content')
         </div>
     </div>
-    {{--<div id="blur">
-    </div>
-    <div id="close_config" class="panel" onclick="blurStuff(0)">Cerrar</div>--}}
-</div>
-
-<!-- Scripts -->
-
+    @if(Session::get('business_id'))
+    <footer class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 main-icos-footer">
+                <div class="col-md-3 col-xs-4 box-icos-footer">
+                    <div class="pull-left">
+                        <div class="col-md-4 col-xs-4 cont-ico-footer no_padding">
+                            <img title="Facebook" alt="Facebook" class="img-responsive center-block" src="{{ asset('images/logo_facebook.png') }}">
+                        </div>
+                        <div class="col-md-8 col-xs-8 txt-face">cpavisionmx</div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-4">
+                    <img title="CPA Vision" alt="CPA Vision" class="img-responsive center-block" src="{{ asset('images/logo_cpavision.png') }}">
+                </div>
+                <div class="col-md-3 col-xs-4 box-icos-footer">
+                    <div class="pull-right">
+                        <div class="col-md-4 col-xs-4 cont-ico-footer no_padding">
+                            <img title="Twitter" alt="Facebook" class="img-responsive center-block" src="{{ asset('images/twitter_logo.png') }}">
+                        </div>
+                        <div class="col-md-8 col-xs-8 txt-twitter">@CPA_visionmx</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 banner-footer"></div>
+        </div>
+    </footer>
+    @endif
 </body>
 </html>

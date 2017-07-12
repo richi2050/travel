@@ -3,6 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
+        <br><br>
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
@@ -29,6 +30,7 @@
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
+                            </div>
                             </div>
                         </div>
                         <div class="form-group">
