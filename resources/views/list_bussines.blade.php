@@ -6,15 +6,15 @@
             <div class="col-md-8 col-md-offset-2">
                 <br><br><br>
                <table class="table" >
-                   <tr>
-                       <td>
-                           @foreach($lista as $list)
-                                  <a href="#" class="business" data-id="{{ $list->id }}" data-group="{{ $list->grupo_id }}" data-description="{{ $list->descripcion }}">
-                                      {{ $list->descripcion }}
-                                  </a>
-                           @endforeach
-                       </td>
-                   </tr>
+                       @foreach($lista as $list)
+                       <tr>
+                           <td>
+                               <a href="#" class="business" data-id="{{ $list->id }}" data-group="{{ $list->grupo_id }}" data-description="{{ $list->descripcion }}">
+                                   {{ $list->descripcion }}
+                               </a>
+                           </td>
+                       </tr>
+                       @endforeach
                </table>
             </div>
         </div>

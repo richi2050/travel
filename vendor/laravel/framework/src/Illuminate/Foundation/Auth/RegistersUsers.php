@@ -59,6 +59,4 @@ trait RegistersUsers
     {
         //
     }
-
-
 }
