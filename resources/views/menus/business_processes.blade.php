@@ -36,7 +36,9 @@
         <div class="col-md-3 col-sm-3 col-xs-6 panel_menu">
             <div class="about-item scrollpoint sp-effect2">
                 <p>
-                    <img src="{{ asset('images/menu/creacion_proyectos.png') }}" alt="">
+                    <a href="{{ route('project.index') }}" >
+                        <img src="{{ asset('images/menu/creacion_proyectos.png') }}" alt="">
+                    </a>
                 </p>
                 <h3 class="font_menu">Creación de proyectos, subproyectos y viajes.</h3>
             </div><! --/about-item -->

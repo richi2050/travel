@@ -37,6 +37,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <!-- File CSS -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/font-awesome.css') }}">
     <!--Plugin Foggy-->
 
     <script type="text/javascript" src="{{ asset('js/jquery.foggy.min.js') }}"></script>

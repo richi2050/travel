@@ -15,5 +15,6 @@ Route::group(['middleware' => ['auth.session']], function () {
     Route::get('list/business','BusinessController@lista')->name('list');
     Route::get('generate/business','BusinessController@generateBusiness')->name('busine_select');
     Route::get('business/process','RoutingController@businessProcess')->name('business_process');
+    Route::resource('project','ProjectWebController');
 
 });
