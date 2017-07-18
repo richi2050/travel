@@ -27,7 +27,6 @@ $(document).ready(function(){
     redimensiona();
     $('.click_href').unbind().bind('click',function(){
         var url = $(this).attr('data-href');
-        alert(url);
         if(isChrome)
         {
             $("#blur").foggy({

@@ -85,7 +85,13 @@
     :checked ~ i.fa-folder-open:before {
         color: #2C398E;
     }
-    .fa:before{
+    .fa.fa-suitcase:before{
+        color: #099C7F;
+    }
+    .fa.fa-suitcase.fa-form-title:before{
+        color: #2C398E;
+    }
+    .fa-folder-open:before {
         color: #099C7F;
     }
     .fa.fa-plane:before{
@@ -142,8 +148,111 @@
         border-radius: 0.3em;
     }
     .pre-scrollable {
-        max-height: 460px;
+        max-height: 400px;
         overflow-y: scroll;
+    }
+    .titulo{
+        text-align: center;
+        color: #009577;
+    }
+    .conten-img{
+        margin: auto;
+        width: 50%;
+        height: 30%;
+        padding: 10px;
+        margin-top: 5%;
+    }
+    .conten-img-title{
+        text-align: center;
+        color: #009577;
+        margin-top: 10%;
+        font-weight: bold;
+        font-size: 16px;
+    }
+    .add_project_back{
+        background-color: #099C7F;
+        color: white;
+        border-radius: 15px;
+        width: 50%;
+        height: 50%;
+        text-align: center;
+    }
+
+
+
+    .input-group-btn .btn-group {
+        display: flex !important;
+    }
+    .btn-group .btn {
+        border-radius: 0;
+        margin-left: -1px;
+    }
+    .btn-group .btn:last-child {
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+    .btn-group .form-horizontal .btn[type="submit"] {
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+    }
+
+
+    @media screen and (min-width: 768px) {
+        #adv-search {
+
+            margin: 0 auto;
+        }
+        .dropdown.dropdown-lg {
+            position: static !important;
+        }
+        .dropdown.dropdown-lg .dropdown-menu {
+            min-width: 500px;
+        }
+    }
+    .add_project{
+        cursor: pointer;
+        color: white;
+    }
+    .panel-title{
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 20px;
+        color: #009577;
+    }
+    .form-group {
+        margin-bottom: 9px;
+    }
+    input.form-control{
+        background: transparent;
+        display: block;
+        width: 100%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: black;
+        background-image: none;
+        border: 1px solid #2C398E;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+    textarea.form-control{
+        background: transparent;
+        border: 1px solid #2C398E;
+        color: black;
+    }
+    select.form-control{
+        border: 1px solid #2C398E;
+        color: black;
+        background: transparent;
+    }
+    .btn-save{
+        background-color: #E97A70;
+        color: white;
     }
 
 </style>
@@ -187,74 +296,48 @@
 
     });
 </script>
-<br><br><br>
-
+<br><br>
     <div class="container">
         <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 ">
+                <h3 class="titulo"> <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i> PROYECTOS, SUBPROYECTOS Y VIAJE. </h3>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
             <div class="col-xs-12 col-sm-6 col-md-6 ">
-                <div class="panel panel-default ">
-                    <div class="col-md-8 col-md-offset-8">
-                        <i class="fa fa-plus fa-2x add_project"  style="cursor: pointer;"></i>
+                <div class="panel panel-default" style="background: transparent; border-color: transparent;">
+                    <div class="col-md-4">
+                        <div class="conten-img">
+                            <img alt="User Pic" src="{{ Session::get('img') }}" class="img-circle img-responsive img-profile">
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="conten-img-title">
+                            Usuario: {{ Session::get('name').'  '.Session::get('lastName') }}
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-10">
+                            <div class="input-group" id="adv-search">
+                                <input type="text" class="form-control" placeholder="Search for snippets" />
+                                <div class="input-group-btn">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn">
+                                            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="add_project_back">
+                                <i class="fa fa-plus fa-2x add_project"></i>
+                            </div>
+                        </div>
                     </div>
                     <div class="panel-body pre-scrollable" id="list_project">
                         <ul class="tree">
-                            <!--
-                            <li>
-                                <input type="checkbox" id="c1" />
-                                <label class="tree_label" for="c1">Level 0</label>
-                                <ul>
-                                    <li>
-                                        <input type="checkbox" id="c2" />
-                                        <label for="c2" class="tree_label">Level 1</label>
-                                        <ul>
-                                            <li><span class="tree_label">Level 2</span></li>
-                                            <li><span class="tree_label">Level 2</span></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" id="c3" />
-                                        <label for="c3" class="tree_label">Looong level 1 <br/>label text <br/>with line-breaks</label>
-                                        <ul>
-                                            <li><span class="tree_label">Level 2</span></li>
-                                            <li>
-                                                <input type="checkbox" id="c4" />
-                                                <label for="c4" class="tree_label"><span class="tree_custom">Specified tree item view</span></label>
-                                                <ul>
-                                                    <li><span class="tree_label">Level 3</span></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <input type="checkbox" id="c5" />
-                                <label class="tree_label" for="c5">Level 0</label>
-                                <ul>
-                                    <li>
-                                        <input type="checkbox" id="c6" />
-                                        <label for="c6" class="tree_label">Level 1</label>
-                                        <ul>
-                                            <li><span class="tree_label">Level 2</span></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <input type="checkbox" id="c7" />
-                                        <label for="c7" class="tree_label">Level 1</label>
-                                        <ul>
-                                            <li><span class="tree_label">Level 2</span></li>
-                                            <li>
-                                                <input type="checkbox" id="c8" />
-                                                <label for="c8" class="tree_label">Level 2</label>
-                                                <ul>
-                                                    <li><span class="tree_label">Level 3</span></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                            -->
                             @foreach($data as $dat)
                                 <li>
                                     <input type="checkbox" id="p-{{ $dat['project']['id'] }}" />
@@ -287,9 +370,44 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6 col-md-6 panel_box">
-                <div class="panel_cover">
-                    Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.
+            <div class="col-xs-12 col-sm-6 col-md-6 ">
+                <div class="panel panel-default" style="background: transparent; border-color: #099C7F;">
+                    <div class="panel-heading"  style="background: transparent;border-color: transparent;">
+                        <h3 class="panel-title"> <i class="fa fa-suitcase fa-form-title" aria-hidden="true"></i>  Proyectos </h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ Form::open(['id'=>'form_id','class' => 'form-horizontal']) }}
+                        <div class='form-group hidden' id="form-auto">
+                            <label class='control-label'>Autor : <span id="user_name"></span></label>
+                        </div>
+                        <div class='form-group'>
+                            <label class='control-label col-md-2'>Nombre:</label>
+                            <div class="col-md-10">
+                                <input type='text' name='id' id='txt_id' class="hidden">
+                                <input type='text' name='type' id='txt_type' class="hidden" value='1'>
+                                {{ Form::text('nombre','',['class' => 'form-control','id'=>'txt_pro_name']) }}
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='control-label col-md-2'>Descripcion</label>
+                            <div class="col-md-10">
+                                {{ Form::textarea('descripcion','',['class' => 'form-control','id'=>'txt_pro_descr']) }}
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <label class='control-label col-md-2'>Status</label>
+                            <div class="col-md-10">
+                                {{ Form::select('activo', array('1' => 'Activo', '0' => 'Inactivo'), 1,['class' => 'form-control','id'=>'txt_pro_activo']) }}
+                            </div>
+                        </div>
+                        <div class='form-group'>
+                            <div class="col-md-12">
+                                <input type='button' data-type='1' value='Registrar' class='save btn btn-sm btn-save pull-right'>
+                                <button  type='button' data-type='1' id='btn-plus' class='hidden btn btn-default pull-right'>+</button>
+                            </div>
+                        </div>
+                            {{ Form::close() }}
+                    </div>
                 </div>
             </div>
         </div>

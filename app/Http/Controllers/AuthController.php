@@ -56,6 +56,9 @@ class AuthController extends Controller
             if($zonerResponse->success){
                 $request->session()->put('user_id', $zonerResponse->request->user_id );
                 $request->session()->put('token',$zonerResponse->request->token );
+                $request->session()->put('name',$zonerResponse->request->name);
+                $request->session()->put('img',$zonerResponse->request->img);
+                $request->session()->put('lastName',$zonerResponse->request->lastName);
                 return redirect()->route('list');
             }else{
 
@@ -117,6 +120,10 @@ class AuthController extends Controller
         Session::forget('business_id');
         Session::forget('goup_id');
         Session::forget('business_description');
+
+        Session::forget('name');
+        Session::forget('img');
+        Session::forget('lastName');
         return redirect('/');
     }
 
