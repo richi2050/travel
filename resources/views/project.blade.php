@@ -219,6 +219,9 @@
         font-size: 20px;
         color: #009577;
     }
+    .label-form{
+        color: #2C398E;
+    }
     .form-group {
         margin-bottom: 9px;
     }
@@ -253,6 +256,10 @@
     .btn-save{
         background-color: #E97A70;
         color: white;
+    }
+    #content-plus{
+
+        font-size: 30px;
     }
 
 </style>
@@ -331,9 +338,9 @@
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <div class="add_project_back">
-                                <i class="fa fa-plus fa-2x add_project"></i>
-                            </div>
+                            <span class="icon-mas add_new_project" style="font-size: 30px; cursor: pointer;">
+                                    <span class="path1"></span><span class="path2"></span>
+                                </span>
                         </div>
                     </div>
                     <div class="panel-body pre-scrollable" id="list_project">
@@ -371,44 +378,150 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-6 ">
-                <div class="panel panel-default" style="background: transparent; border-color: #099C7F;">
-                    <div class="panel-heading"  style="background: transparent;border-color: transparent;">
-                        <h3 class="panel-title"> <i class="fa fa-suitcase fa-form-title" aria-hidden="true"></i>  Proyectos </h3>
-                    </div>
-                    <div class="panel-body">
-                        {{ Form::open(['id'=>'form_id','class' => 'form-horizontal']) }}
-                        <div class='form-group hidden' id="form-auto">
-                            <label class='control-label'>Autor : <span id="user_name"></span></label>
+                <!-- Inicio de panel project -->
+                <div class="panel_project">
+                    <div class="panel panel-default" style="background: transparent; border-color: #099C7F;">
+                        <div class="panel-heading"  style="background: transparent;border-color: transparent;">
+                            <h3 class="panel-title"> <i class="fa fa-suitcase fa-form-title" aria-hidden="true"></i>  Proyectos </h3>
                         </div>
-                        <div class='form-group'>
-                            <label class='control-label col-md-2'>Nombre:</label>
-                            <div class="col-md-10">
-                                <input type='text' name='id' id='txt_id' class="hidden">
-                                <input type='text' name='type' id='txt_type' class="hidden" value='1'>
-                                {{ Form::text('nombre','',['class' => 'form-control','id'=>'txt_pro_name']) }}
+                        <div class="panel-body">
+                            {{ Form::open(['id'=>'form_project_id','class' => 'form-horizontal']) }}
+                            <div class='form-group hidden' id="form-auto">
+                                <label class='control-label'>Autor : <span id="user_name"></span></label>
                             </div>
-                        </div>
-                        <div class='form-group'>
-                            <label class='control-label col-md-2'>Descripcion</label>
-                            <div class="col-md-10">
-                                {{ Form::textarea('descripcion','',['class' => 'form-control','id'=>'txt_pro_descr']) }}
+                            <div class='form-group'>
+                                <label class='control-label label-form col-md-2'>Nombre:</label>
+                                <div class="col-md-10">
+                                    <input type='text' name='id' id='txt_pro_id' class="">
+                                    <input type='text' name='type' id='txt_type' class="hidden" value='1'>
+                                    {{ Form::text('nombre','',['class' => 'form-control','id'=>'txt_pro_name']) }}
+                                </div>
                             </div>
-                        </div>
-                        <div class='form-group'>
-                            <label class='control-label col-md-2'>Status</label>
-                            <div class="col-md-10">
-                                {{ Form::select('activo', array('1' => 'Activo', '0' => 'Inactivo'), 1,['class' => 'form-control','id'=>'txt_pro_activo']) }}
+                            <div class='form-group'>
+                                <label class='control-label label-form col-md-2'>Descripcion</label>
+                                <div class="col-md-10">
+                                    {{ Form::textarea('descripcion','',['class' => 'form-control','id'=>'txt_pro_descr']) }}
+                                </div>
                             </div>
-                        </div>
-                        <div class='form-group'>
-                            <div class="col-md-12">
-                                <input type='button' data-type='1' value='Registrar' class='save btn btn-sm btn-save pull-right'>
-                                <button  type='button' data-type='1' id='btn-plus' class='hidden btn btn-default pull-right'>+</button>
+                            <div class='form-group'>
+                                <label class='control-label label-form col-md-2'>Status</label>
+                                <div class="col-md-10">
+                                    {{ Form::select('activo', array('1' => 'Activo', '0' => 'Inactivo'), 1,['class' => 'form-control','id'=>'txt_pro_activo']) }}
+                                </div>
                             </div>
-                        </div>
+                            <div class='form-group info_user_pro hidden'>
+                                <label class='control-label label-form col-xs-6'>Autor: {{ "Ricardo Lugo" }}</label>
+                                <div class="col-xs-6">
+                                    <label class='control-label label-name-subproject label-form fecha-pro'> Fecha : </label>
+                                </div>
+                            </div>
+                            <div class='form-group'>
+                                <div class="col-md-12">
+                                    <input type='button' data-type='1' value='Registrar' class='save btn btn-sm btn-save pull-right'>
+                                    <button  type='button' data-type='1' id='btn-plus' class='hidden btn btn-default pull-right'>+</button>
+                                </div>
+                            </div>
                             {{ Form::close() }}
+                            <div class="form-group pull-right" id="content-plus">
+                            <span class="icon-mas">
+                                    <span class="path1"></span><span class="path2"></span>
+                            </span>
+                                <i class="icon-subproyectos_verde" > </i>
+
+                            </div>
+                        </div>
+
                     </div>
                 </div>
+                <!-- fin d epanel project-->
+
+
+                <!-- inicio de panel subprojecto-->
+                <div class="panel_sub_project">
+                    <div class="panel panel-default" style="background: transparent; border-color: #099C7F;">
+                        <div class="panel-heading"  style="background: transparent;border-color: transparent;">
+                            <h3 class="panel-title"> <i class="fa fa-suitcase fa-form-title" aria-hidden="true"></i> Sub Proyectos </h3>
+                        </div>
+                        <div class="panel-body">
+                            {{ Form::open(['id'=>'form_id','class' => 'form-horizontal']) }}
+                                <div class='form-group'>
+                                    <label class='control-label label-form col-md-2'>Proyecto</label>
+                                    <div class="col-md-10">
+                                        <label class='control-label label-name-project label-form col-md-2'>Proyecto</label>
+                                    </div>
+                                </div>
+                                <div class='form-group'>
+                                    <label class='control-label label-form col-md-2'>Nombre:</label>
+                                    <div class="col-md-10">
+                                        <input type='text' name='id' id='txt_id' class="hidden">
+                                        <input type='text' name='type' id='txt_type' class="hidden" value='1'>
+                                        {{ Form::text('nombre','',['class' => 'form-control','id'=>'txt_pro_name']) }}
+                                    </div>
+                                </div>
+                                <div class='form-group'>
+                                    <label class='control-label label-form col-md-2'>Descripcion</label>
+                                    <div class="col-md-10">
+                                        {{ Form::textarea('descripcion','',['class' => 'form-control','id'=>'txt_pro_descr']) }}
+                                    </div>
+                                </div>
+                                <div class='form-group'>
+                                    <label class='control-label label-form col-md-2'>Status</label>
+                                    <div class="col-md-10">
+                                        {{ Form::select('activo', array('1' => 'Activo', '0' => 'Inactivo'), 1,['class' => 'form-control','id'=>'txt_pro_activo']) }}
+                                    </div>
+                                </div>
+                                <div class='form-group'>
+                                    <div class="col-md-12">
+                                        <input type='button' data-type='1' value='Registrar' class='save btn btn-sm btn-save pull-right'>
+                                        <button  type='button' data-type='1' id='btn-plus' class='hidden btn btn-default pull-right'>+</button>
+                                    </div>
+                                </div>
+
+                            {{ Form::close() }}
+                            <div class="form-group pull-right" id="content-plus">
+                                <span class="icon-mas">
+                                    <span class="path1"></span><span class="path2"></span>
+                                </span>
+                                <i class="icon-viaje_verde" > </i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- fin de panel subproject -->
+
+
+                <!-- inicio panel viaje -->
+                <div class="panel_viaje">
+                    <div class="panel panel-default" style="background: transparent; border-color: #099C7F;">
+                        <div class="panel-heading"  style="background: transparent;border-color: transparent;">
+                            <h3 class="panel-title"> <i class="fa fa-suitcase fa-form-title" aria-hidden="true"></i> Viajes </h3>
+                        </div>
+                        <div class="panel-body">
+                            {{ Form::open(['id'=>'form_id','class' => 'form-horizontal']) }}
+                            <div class='form-group'>
+                                <label class='control-label label-form col-md-2'>Proyecto</label>
+                                <div class="col-md-10">
+                                    <label class='control-label label-name-project label-form'>Proyecto</label>
+                                </div>
+                            </div>
+                            <div class='form-group pull-left'>
+                                <label class='control-label label-form col-md-6'>Sub Proyecto</label>
+                                <div class="col-md-6">
+                                    <label class='control-label label-name-subproject label-form'>Sub Proyecto</label>
+                                </div>
+                            </div>
+                            <div class='form-group'>
+                                <div class="col-md-12">
+                                    <input type='button' data-type='1' value='Registrar' class='save btn btn-sm btn-save pull-right'>
+                                    <button  type='button' data-type='1' id='btn-plus' class='hidden btn btn-default pull-right'>+</button>
+                                </div>
+                            </div>
+                            {{ Form::close() }}
+                        </div>
+                    </div>
+
+                </div>
+                <!-- fin del panel viaje -->
             </div>
         </div>
     </div>
@@ -418,6 +531,11 @@
 
 <script>
     $(document).ready(function(){
+        $('.add_new_project').unbind().bind('click',function(){
+
+            alert('generar new project');
+        });
+
         $('.tree_label').unbind().bind('click',function(){
             $data_type = $(this).attr('data-type');
             $id = $(this).attr('data-id');
@@ -443,8 +561,7 @@
                 success:function(data){
                     switch(parseInt($data_type)){
                         case 1:
-                            formProject();
-                            formAutoProject(data);
+                            fillFormProject(data);
                             break;
                         case 2:
                             $route = "{{ url('sub_project/') }}"+"/"+$id;
@@ -463,6 +580,27 @@
 
         });
     });
+
+    function fillFormProject(data){
+        console.log(data);
+        $('.info_user_pro').removeClass('hidden')
+        $('#txt_pro_id').val(data.id);
+        $('#txt_pro_name').val(data.name);
+        $('#txt_pro_descr').val(data.description);
+        $('#txt_pro_activo option[value="'+data.active+'"]').attr("selected", "selected");
+        $('.fecha-pro').text('Fecha: '+data.created_at);
+
+
+
+        /*
+        $('#').val(data.);
+        $('#').val(data.);
+        $('#').val(data.);
+        $('#').val(data.);
+        */
+
+    }
+
 </script>
 
 </body>

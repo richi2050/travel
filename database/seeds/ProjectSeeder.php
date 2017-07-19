@@ -18,9 +18,11 @@ class ProjectSeeder extends Seeder
         for($i=1;$i <= ENV('NUM_FOR');$i++){
 
             Project::create([
-                'name' => 'Nombre del proyecto'.$i,
-                'description' =>'Descripción proyecto '.$i,
-                'business_id'   => 1
+                'name'          =>  'Nombre del proyecto'.$i,
+                'description'   =>  'Descripción proyecto '.$i,
+                'business_id'   =>  1,
+                'active'        =>  0,
+                'user_id'       =>  "af342f96-9425-44c2-bdde-78b9d00b131e"
             ]);
         }
     }

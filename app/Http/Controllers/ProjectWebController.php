@@ -93,6 +93,7 @@ class ProjectWebController extends Controller
     {
         $project = Project::find($id);
 
+
         return response()->json($project);
     }
 

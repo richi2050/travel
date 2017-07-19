@@ -470,3 +470,81 @@ and (max-device-width : 1024px)  {
 .panel_menu{
 	text-align: center;
 }
+
+/*** inicia estilo de icon moon ***/
+@font-face {
+	font-family: 'icomoon';
+	src:  url('../fonts/icomoon.eot?1rok21');
+	src:  url('../fonts/icomoon.eot?1rok21#iefix') format('embedded-opentype'),
+	url('../fonts/icomoon.ttf?1rok21') format('truetype'),
+	url('../fonts/icomoon.woff?1rok21') format('woff'),
+	url('../fonts/icomoon.svg?1rok21#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+	/* use !important to prevent issues with browser extensions that change fonts */
+	font-family: 'icomoon' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-subproyectos_verde:before {
+	content: "\e903";
+	color: #4a9477;
+}
+.icon-viaje_verde:before {
+	content: "\e904";
+	color: #4a9477;
+}
+.icon-viaje:before {
+	content: "\e905";
+	color: #33337f;
+}
+.icon-subproyectos:before {
+	content: "\e906";
+	color: #33337f;
+}
+.icon-proyectos_verde:before {
+	content: "\e907";
+	color: #4a9477;
+}
+.icon-proyectos:before {
+	content: "\e908";
+	color: #33337f;
+}
+.icon-mas .path1:before {
+	content: "\e909";
+	color: rgb(74, 148, 119);
+}
+.icon-mas .path2:before {
+	content: "\e90a";
+	margin-left: -0.95703125em;
+	color: rgb(255, 255, 255);
+}
+.icon-perfil .path1:before {
+	content: "\e900";
+	color: rgb(225, 225, 224);
+}
+.icon-perfil .path2:before {
+	content: "\e901";
+	margin-left: -1.7138671875em;
+	color: rgb(51, 51, 127);
+}
+.icon-perfil .path3:before {
+	content: "\e902";
+	margin-left: -1.7138671875em;
+	color: rgb(51, 51, 127);
+}
+
+
+/*** finaliza estilo de icon moon **/
