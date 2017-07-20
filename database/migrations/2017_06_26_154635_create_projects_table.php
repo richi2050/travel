@@ -18,7 +18,7 @@ class CreateProjectsTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('user_id');
-            $table->integer('business_id');
+            $table->string('business_id');
             $table->boolean('active')->default(1);
             $table->timestamps();
         });

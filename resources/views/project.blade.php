@@ -257,9 +257,10 @@
         background-color: #E97A70;
         color: white;
     }
-    #content-plus{
+    .content-plus{
 
         font-size: 30px;
+        cursor: pointer;
     }
 
 </style>
@@ -382,13 +383,11 @@
                 <div class="panel_project">
                     <div class="panel panel-default" style="background: transparent; border-color: #099C7F;">
                         <div class="panel-heading"  style="background: transparent;border-color: transparent;">
-                            <h3 class="panel-title"> <i class="fa fa-suitcase fa-form-title" aria-hidden="true"></i>  Proyectos </h3>
+                            <h3 class="panel-title"> <i class="fa icon-proyectos fa-form-title" aria-hidden="true"></i>  Proyectos </h3>
                         </div>
                         <div class="panel-body">
                             {{ Form::open(['id'=>'form_project_id','class' => 'form-horizontal']) }}
-                            <div class='form-group hidden' id="form-auto">
-                                <label class='control-label'>Autor : <span id="user_name"></span></label>
-                            </div>
+
                             <div class='form-group'>
                                 <label class='control-label label-form col-md-2'>Nombre:</label>
                                 <div class="col-md-10">
@@ -410,19 +409,18 @@
                                 </div>
                             </div>
                             <div class='form-group info_user_pro hidden'>
-                                <label class='control-label label-form col-xs-6'>Autor: {{ "Ricardo Lugo" }}</label>
+                                <label class='control-label label-user-project label-form col-xs-6'>Autor: {{ "Ricardo Lugo" }}</label>
                                 <div class="col-xs-6">
                                     <label class='control-label label-name-subproject label-form fecha-pro'> Fecha : </label>
                                 </div>
                             </div>
                             <div class='form-group'>
                                 <div class="col-md-12">
-                                    <input type='button' data-type='1' value='Registrar' class='save btn btn-sm btn-save pull-right'>
-                                    <button  type='button' data-type='1' id='btn-plus' class='hidden btn btn-default pull-right'>+</button>
+                                    <input type='button' data-type='1' id='register_project' value='Registrar' class='save btn btn-sm btn-save pull-right'>
                                 </div>
                             </div>
                             {{ Form::close() }}
-                            <div class="form-group pull-right" id="content-plus">
+                            <div class="form-group pull-right content-plus" id="content-plus-project">
                             <span class="icon-mas">
                                     <span class="path1"></span><span class="path2"></span>
                             </span>
@@ -440,12 +438,14 @@
                 <div class="panel_sub_project">
                     <div class="panel panel-default" style="background: transparent; border-color: #099C7F;">
                         <div class="panel-heading"  style="background: transparent;border-color: transparent;">
-                            <h3 class="panel-title"> <i class="fa fa-suitcase fa-form-title" aria-hidden="true"></i> Sub Proyectos </h3>
+                            <h3 class="panel-title"> <i class="fa icon-subproyectos fa-form-title" aria-hidden="true"></i> Sub Proyectos </h3>
                         </div>
                         <div class="panel-body">
-                            {{ Form::open(['id'=>'form_id','class' => 'form-horizontal']) }}
+                            {{ Form::open(['id'=>'form_subproject_id','class' => 'form-horizontal']) }}
                                 <div class='form-group'>
                                     <label class='control-label label-form col-md-2'>Proyecto</label>
+                                    <input type="text" id="subproject_id" name="id">
+                                    <input type="text" id="project_id_subproject" name="project_id">
                                     <div class="col-md-10">
                                         <label class='control-label label-name-project label-form col-md-2'>Proyecto</label>
                                     </div>
@@ -472,13 +472,12 @@
                                 </div>
                                 <div class='form-group'>
                                     <div class="col-md-12">
-                                        <input type='button' data-type='1' value='Registrar' class='save btn btn-sm btn-save pull-right'>
-                                        <button  type='button' data-type='1' id='btn-plus' class='hidden btn btn-default pull-right'>+</button>
+                                        <input type='button'  id='register_subproject'  value='Registrar' class='save btn btn-sm btn-save pull-right'>
                                     </div>
                                 </div>
 
                             {{ Form::close() }}
-                            <div class="form-group pull-right" id="content-plus">
+                            <div class="form-group pull-right content-plus" id="content-plus-project">
                                 <span class="icon-mas">
                                     <span class="path1"></span><span class="path2"></span>
                                 </span>
@@ -494,7 +493,7 @@
                 <div class="panel_viaje">
                     <div class="panel panel-default" style="background: transparent; border-color: #099C7F;">
                         <div class="panel-heading"  style="background: transparent;border-color: transparent;">
-                            <h3 class="panel-title"> <i class="fa fa-suitcase fa-form-title" aria-hidden="true"></i> Viajes </h3>
+                            <h3 class="panel-title"> <i class="fa icon-viaje fa-form-title" aria-hidden="true"></i> Viajes </h3>
                         </div>
                         <div class="panel-body">
                             {{ Form::open(['id'=>'form_id','class' => 'form-horizontal']) }}
@@ -520,6 +519,7 @@
                         </div>
                     </div>
 
+
                 </div>
                 <!-- fin del panel viaje -->
             </div>
@@ -531,9 +531,37 @@
 
 <script>
     $(document).ready(function(){
-        $('.add_new_project').unbind().bind('click',function(){
 
-            alert('generar new project');
+        $('#register_project').unbind().bind('click',function(){
+            $datForm = $('#form_project_id').serialize();
+            $.ajax({
+                url:"{{ route('project.store') }}",
+                type:'POST',
+                data : $datForm,
+                dataType: 'json',
+                success:function(data){
+                    if(data.success){
+                        ListProject();
+                    }
+
+                },error:function(){
+                    alert('Intenta mas tarde ...');
+                }
+            });
+
+        });
+
+        $('#register_subproject').unbind().bind('click',function(){
+            alert('this alertttttttttttttttttttttttttttttttttttttttttttt');
+            $formSubproject = $('#form_subproject_id').serialize();
+        });
+
+        $('.add_new_project').unbind().bind('click',function(){
+            clearFormProject();
+        });
+
+        $('#content-plus-project').unbind().bind('click',function(){
+            clearFormSubProject();
         });
 
         $('.tree_label').unbind().bind('click',function(){
@@ -544,6 +572,7 @@
             switch(parseInt($data_type)){
                 case 1:
                     $route = "{{ url('project/') }}"+"/"+$id;
+                    $('#content-plus-project').removeClass('hidden');
                     break;
                 case 2:
                     $route = "{{ url('sub_project/') }}"+"/"+$id;
@@ -573,32 +602,57 @@
                     }
 
                 },error:function(data){
-
+                    alert('Intenta mas tarde ...');
                 }
             });
-
 
         });
     });
 
+    function clearFormSubProject(){
+        $project_id = $('#txt_pro_id').val();
+        $name_project = $('#txt_pro_name').val();
+        $('.label-name-project').text($name_project);
+        $('#project_id_subproject').val($project_id);
+    }
+
+
+
     function fillFormProject(data){
-        console.log(data);
         $('.info_user_pro').removeClass('hidden')
-        $('#txt_pro_id').val(data.id);
-        $('#txt_pro_name').val(data.name);
-        $('#txt_pro_descr').val(data.description);
-        $('#txt_pro_activo option[value="'+data.active+'"]').attr("selected", "selected");
-        $('.fecha-pro').text('Fecha: '+data.created_at);
+        $('#txt_pro_id').val(data.project.id);
+        $('#txt_pro_name').val(data.project.name);
+        $('#txt_pro_descr').val(data.project.description);
+        $('#txt_pro_activo option[value="'+data.project.active+'"]').attr("selected", "selected");
+        $('.fecha-pro').text('Fecha: '+data.project.created_at);
+        $('.label-user-project').text('Autor: '+ data.user.original.data.name+ ' '+data.user.original.data.las_name);
+    }
 
+    function clearFormProject(){
+        $('.info_user_pro').addClass('hidden')
+        $('#txt_pro_id').val('');
+        $('#txt_pro_name').val('');
+        $('#txt_pro_descr').val('');
+        $('#txt_pro_activo option[value=1]').attr("selected",true);
+        $('#txt_pro_activo option[value=0]').attr("selected",false);
+        $('.fecha-pro').text('Fecha: ');
+        $('.panel_sub_project').addClass('hidden');
+        $('.panel_viaje').addClass('hidden');
+        $('#content-plus-project').addClass('hidden');
+    }
+    
+    function ListProject() {
+        $.ajax({
+            url : "{{ route('list_project') }} ",
+            type:'GET',
+            success:function(data){
 
+                $('#list_project').html(data);
+            },error:function(data){
 
-        /*
-        $('#').val(data.);
-        $('#').val(data.);
-        $('#').val(data.);
-        $('#').val(data.);
-        */
-
+            }
+        });
+        
     }
 
 </script>

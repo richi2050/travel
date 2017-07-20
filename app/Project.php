@@ -25,7 +25,6 @@ class Project extends Model
 
     function getCreatedAtAttribute($value)
     {
-        Log::error('holaaaaaaaaaaa');
         return $this->attributes['created_at'] = Carbon::parse($value)->format('Y-m-d');
     }
 

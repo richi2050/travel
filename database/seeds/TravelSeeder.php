@@ -20,7 +20,7 @@ class TravelSeeder extends Seeder
 
         $counProject = count(Project::all());
         $counSubProject = count(SubProject::all());
-        for($i=1;$i <= ENV('NUM_FOR');$i++){
+        for($i=1;$i <= ENV('NUM_FOR',20);$i++){
             Travel::create([
                 'name' => $faker->randomNumber($nbDigits = NULL, $strict = false),
                 'description' =>'Descripcion de '.$i,

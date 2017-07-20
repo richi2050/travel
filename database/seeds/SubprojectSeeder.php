@@ -17,7 +17,7 @@ class SubprojectSeeder extends Seeder
         $faker = Faker::create();
         $counProject = count(Project::all());
 
-        for($i=1;$i <= ENV('NUM_FOR');$i++){
+        for($i=1;$i <= ENV('NUM_FOR',20);$i++){
 
             SubProject::create([
                 'name' => 'Nombre del sub proyecto'.$i,

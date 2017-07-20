@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Project;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 use App\Http\Controllers\HomeController;
 use Validator;
 

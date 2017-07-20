@@ -15,8 +15,8 @@ class ProjectSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        for($i=1;$i <= ENV('NUM_FOR');$i++){
 
+        for($i=1;$i <= ENV('NUM_FOR',20);$i++){
             Project::create([
                 'name'          =>  'Nombre del proyecto'.$i,
                 'description'   =>  'Descripción proyecto '.$i,

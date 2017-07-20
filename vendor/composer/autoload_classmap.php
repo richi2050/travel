@@ -1419,6 +1419,7 @@ return array(
     'JakubOnderka\\PhpConsoleColor\\ConsoleColor' => $vendorDir . '/jakub-onderka/php-console-color/src/JakubOnderka/PhpConsoleColor/ConsoleColor.php',
     'JakubOnderka\\PhpConsoleColor\\InvalidStyleException' => $vendorDir . '/jakub-onderka/php-console-color/src/JakubOnderka/PhpConsoleColor/InvalidStyleException.php',
     'JakubOnderka\\PhpConsoleHighlighter\\Highlighter' => $vendorDir . '/jakub-onderka/php-console-highlighter/src/JakubOnderka/PhpConsoleHighlighter/Highlighter.php',
+    'Laravel\\Tinker\\ClassAliasAutoloader' => $vendorDir . '/laravel/tinker/src/ClassAliasAutoloader.php',
     'Laravel\\Tinker\\Console\\TinkerCommand' => $vendorDir . '/laravel/tinker/src/Console/TinkerCommand.php',
     'Laravel\\Tinker\\TinkerCaster' => $vendorDir . '/laravel/tinker/src/TinkerCaster.php',
     'Laravel\\Tinker\\TinkerServiceProvider' => $vendorDir . '/laravel/tinker/src/TinkerServiceProvider.php',

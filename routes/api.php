@@ -20,9 +20,9 @@ Route::post('prueba','HomeController@prueba')->name('token');
 
 Route::group(['middleware' => ['token']], function () {
 
-    Route::resource('travel','TravelController');
-    Route::resource('project','ProjectController');
-    Route::resource('subproject','SubProjectController');
+    Route::resource('travel','Api\TravelController');
+    Route::resource('project','Api\ProjectController');
+    Route::resource('subproject','Api\SubProjectController');
 
 });
 

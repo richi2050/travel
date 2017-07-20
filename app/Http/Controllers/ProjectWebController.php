@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Project;
 use App\SubProject;
 use App\Travel;
+use Session;
+use Validator;
+use App\Http\Controllers\ServiciosController;
 
 class ProjectWebController extends Controller
 {
@@ -17,7 +20,7 @@ class ProjectWebController extends Controller
     public function index()
     {
         $array= [];
-        $data = Project::all();
+        $data = Project::orderBy('id', 'desc')->get();
 
 
         $i=0;
@@ -65,20 +68,29 @@ class ProjectWebController extends Controller
      */
     public function store(Request $request)
     {
-        $val =Validator::make($request->all(),
+        //dd(Session::all());
+        //dd($request->all());
+        $data = [];
+        $data += $request->all();
+        $data['business_id'] = Session::get('business_id');
+        $data['user_id'] = Session::get('user_id');
+
+        $val =Validator::make($data,
             [
-                'name'          => 'required|min:2|max:150|alpha_num_spaces|string_exist:projects,name',
-                'description'   => 'required|min:2|max:150|alpha_num_spaces',
-                'business_id'   => 'required|integer'
+                'nombre'          => 'required|min:2|max:150|alpha_num_spaces|string_exist:projects,name',
+                'descripcion'   => 'required|min:2|max:150|alpha_num_spaces',
+                'business_id'   => 'required',
+                'user_id'       => 'required',
             ]);
         if($val->fails()){
             return  response()->json($val->errors());
         }
 
         $data= Project::create([
-            'name'          => $request->name,
-            'description'   => $request->description,
-            'business_id'   => $request->business_id
+            'name'          => $data['nombre'],
+            'description'   => $data['descripcion'],
+            'business_id'   => $data['business_id'],
+            'user_id'       => $data['user_id']
         ]);
         return response()->json(['success' => true]);
     }
@@ -92,9 +104,13 @@ class ProjectWebController extends Controller
     public function show($id)
     {
         $project = Project::find($id);
+        $dataUser = ServiciosController::getProfile($project->user_id);
 
-
-        return response()->json($project);
+        $array= [
+            'project' =>$project,
+            'user'    =>$dataUser
+        ];
+        return response()->json($array);
     }
 
     /**
@@ -130,4 +146,5 @@ class ProjectWebController extends Controller
     {
         //
     }
+
 }
