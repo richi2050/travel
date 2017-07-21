@@ -16,10 +16,10 @@ class ComposerStaticInit46451ef85d33635309008259f2651b82
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
         'e7223560d890eab89cda23685e711e2c' => __DIR__ . '/..' . '/psy/psysh/src/Psy/functions.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
-        '4a1f389d6ce373bda9e57857d3b61c84' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/helpers.php',
         'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
+        '4a1f389d6ce373bda9e57857d3b61c84' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -320,6 +320,10 @@ class ComposerStaticInit46451ef85d33635309008259f2651b82
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Http\\Controllers\\Api\\ProjectController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/ProjectController.php',
+        'App\\Http\\Controllers\\Api\\PruController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/PruController.php',
+        'App\\Http\\Controllers\\Api\\SubProjectController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/SubProjectController.php',
+        'App\\Http\\Controllers\\Api\\TravelController' => __DIR__ . '/../..' . '/app/Http/Controllers/Api/TravelController.php',
         'App\\Http\\Controllers\\AuthController' => __DIR__ . '/../..' . '/app/Http/Controllers/AuthController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
@@ -328,12 +332,12 @@ class ComposerStaticInit46451ef85d33635309008259f2651b82
         'App\\Http\\Controllers\\BusinessController' => __DIR__ . '/../..' . '/app/Http/Controllers/BusinessController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
-        'App\\Http\\Controllers\\ProjectController' => __DIR__ . '/../..',
+        'App\\Http\\Controllers\\ProjectExtendController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProjectExtendController.php',
         'App\\Http\\Controllers\\ProjectWebController' => __DIR__ . '/../..' . '/app/Http/Controllers/ProjectWebController.php',
         'App\\Http\\Controllers\\PruebaController' => __DIR__ . '/../..' . '/app/Http/Controllers/PruebaController.php',
         'App\\Http\\Controllers\\RoutingController' => __DIR__ . '/../..' . '/app/Http/Controllers/RoutingController.php',
-        'App\\Http\\Controllers\\SubProjectController' => __DIR__ . '/../..',
-        'App\\Http\\Controllers\\TravelController' => __DIR__ . '/../..',
+        'App\\Http\\Controllers\\ServiciosController' => __DIR__ . '/../..' . '/app/Http/Controllers/ServiciosController.php',
+        'App\\Http\\Controllers\\SubProjectWebController' => __DIR__ . '/../..' . '/app/Http/Controllers/SubProjectWebController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\AuthSession' => __DIR__ . '/../..' . '/app/Http/Middleware/AuthSession.php',
         'App\\Http\\Middleware\\AuthToken' => __DIR__ . '/../..' . '/app/Http/Middleware/AuthToken.php',

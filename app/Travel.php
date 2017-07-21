@@ -15,4 +15,13 @@ class Travel extends Model
         'amount',
         'active',
         'business_id'];
+
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
+    }
+    public function subproject()
+    {
+        return $this->belongsTo('App\SubProject','sub_project_id','id');
+    }
 }

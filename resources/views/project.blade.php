@@ -357,8 +357,8 @@
                                     <ul>
                                         @foreach($dat['subproject'] as $dats)
                                         <li>
-                                            <input type="checkbox" id="s-{{$dats['id']}}" />
-                                            <label  data-type="2" class="tree_label" for="s-{{$dats['id']}}">
+                                            <input type="checkbox" id="s-{{  $dats['id'] }}" />
+                                            <label  data-type="2"  data-id="{{ $dats['id'] }}" class="tree_label" for="s-{{$dats['id']}}">
                                                 <i class="fa fa-folder-open" aria-hidden="true"></i> {{ $dats['name'] }}
                                             </label>
                                             <ul>
@@ -387,12 +387,11 @@
                         </div>
                         <div class="panel-body">
                             {{ Form::open(['id'=>'form_project_id','class' => 'form-horizontal']) }}
-
                             <div class='form-group'>
                                 <label class='control-label label-form col-md-2'>Nombre:</label>
                                 <div class="col-md-10">
-                                    <input type='text' name='id' id='txt_pro_id' class="">
-                                    <input type='text' name='type' id='txt_type' class="hidden" value='1'>
+                                    <input type='hidden' name='id' id='txt_pro_id' class="">
+                                    <input type='hidden' name='type' id='txt_type' class="" value='1'>
                                     {{ Form::text('nombre','',['class' => 'form-control','id'=>'txt_pro_name']) }}
                                 </div>
                             </div>
@@ -435,7 +434,7 @@
 
 
                 <!-- inicio de panel subprojecto-->
-                <div class="panel_sub_project">
+                <div class="panel_sub_project hidden">
                     <div class="panel panel-default" style="background: transparent; border-color: #099C7F;">
                         <div class="panel-heading"  style="background: transparent;border-color: transparent;">
                             <h3 class="panel-title"> <i class="fa icon-subproyectos fa-form-title" aria-hidden="true"></i> Sub Proyectos </h3>
@@ -444,30 +443,34 @@
                             {{ Form::open(['id'=>'form_subproject_id','class' => 'form-horizontal']) }}
                                 <div class='form-group'>
                                     <label class='control-label label-form col-md-2'>Proyecto</label>
-                                    <input type="text" id="subproject_id" name="id">
-                                    <input type="text" id="project_id_subproject" name="project_id">
+                                    <input type="hidden" id="txt_subproject_id" name="id">
+                                    <input type="hidden" id="txt_project_id_subproject" name="project_id">
                                     <div class="col-md-10">
-                                        <label class='control-label label-name-project label-form col-md-2'>Proyecto</label>
+                                        <label class='control-label label-name-subproject label-form'>Proyecto</label>
                                     </div>
                                 </div>
                                 <div class='form-group'>
                                     <label class='control-label label-form col-md-2'>Nombre:</label>
                                     <div class="col-md-10">
-                                        <input type='text' name='id' id='txt_id' class="hidden">
-                                        <input type='text' name='type' id='txt_type' class="hidden" value='1'>
-                                        {{ Form::text('nombre','',['class' => 'form-control','id'=>'txt_pro_name']) }}
+                                        {{ Form::text('nombre','',['class' => 'form-control','id'=>'txt_subpro_name']) }}
                                     </div>
                                 </div>
                                 <div class='form-group'>
                                     <label class='control-label label-form col-md-2'>Descripcion</label>
                                     <div class="col-md-10">
-                                        {{ Form::textarea('descripcion','',['class' => 'form-control','id'=>'txt_pro_descr']) }}
+                                        {{ Form::textarea('descripcion','',['class' => 'form-control','id'=>'txt_subpro_descr']) }}
                                     </div>
                                 </div>
                                 <div class='form-group'>
                                     <label class='control-label label-form col-md-2'>Status</label>
                                     <div class="col-md-10">
-                                        {{ Form::select('activo', array('1' => 'Activo', '0' => 'Inactivo'), 1,['class' => 'form-control','id'=>'txt_pro_activo']) }}
+                                        {{ Form::select('activo', array('1' => 'Activo', '0' => 'Inactivo'), 1,['class' => 'form-control','id'=>'txt_subpro_activo']) }}
+                                    </div>
+                                </div>
+                                <div class='form-group info_user_subpro hidden'>
+                                    <label class='control-label label-user-subproject label-form col-xs-6'>Autor: {{ "Ricardo Lugo" }}</label>
+                                    <div class="col-xs-6">
+                                        <label class='control-label label-name-subproject label-form fecha-subpro'> Fecha : </label>
                                     </div>
                                 </div>
                                 <div class='form-group'>
@@ -477,7 +480,7 @@
                                 </div>
 
                             {{ Form::close() }}
-                            <div class="form-group pull-right content-plus" id="content-plus-project">
+                            <div class="form-group pull-right content-plus hidden" id="content-plus-subproject">
                                 <span class="icon-mas">
                                     <span class="path1"></span><span class="path2"></span>
                                 </span>
@@ -490,7 +493,7 @@
 
 
                 <!-- inicio panel viaje -->
-                <div class="panel_viaje">
+                <div class="panel_viaje hidden">
                     <div class="panel panel-default" style="background: transparent; border-color: #099C7F;">
                         <div class="panel-heading"  style="background: transparent;border-color: transparent;">
                             <h3 class="panel-title"> <i class="fa icon-viaje fa-form-title" aria-hidden="true"></i> Viajes </h3>
@@ -543,7 +546,6 @@
                     if(data.success){
                         ListProject();
                     }
-
                 },error:function(){
                     alert('Intenta mas tarde ...');
                 }
@@ -552,7 +554,6 @@
         });
 
         $('#register_subproject').unbind().bind('click',function(){
-            alert('this alertttttttttttttttttttttttttttttttttttttttttttt');
             $formSubproject = $('#form_subproject_id').serialize();
         });
 
@@ -568,14 +569,14 @@
             $data_type = $(this).attr('data-type');
             $id = $(this).attr('data-id');
             $route="";
-            console.log($data_type);
             switch(parseInt($data_type)){
                 case 1:
                     $route = "{{ url('project/') }}"+"/"+$id;
                     $('#content-plus-project').removeClass('hidden');
                     break;
                 case 2:
-                    $route = "{{ url('sub_project/') }}"+"/"+$id;
+                    $route = "{{ url('subproject/') }}"+"/"+$id;
+                    $('#content-plus-subproject').removeClass('hidden');
                     break;
                 case 3:
                     $route = "{{ url('travel/') }}"+"/"+$id;
@@ -593,7 +594,8 @@
                             fillFormProject(data);
                             break;
                         case 2:
-                            $route = "{{ url('sub_project/') }}"+"/"+$id;
+                            fillFormSubProject(data)
+
                             break;
                         case 3:
                             $route = "{{ url('travel/') }}"+"/"+$id;
@@ -626,6 +628,25 @@
         $('#txt_pro_activo option[value="'+data.project.active+'"]').attr("selected", "selected");
         $('.fecha-pro').text('Fecha: '+data.project.created_at);
         $('.label-user-project').text('Autor: '+ data.user.original.data.name+ ' '+data.user.original.data.las_name);
+
+        $('.panel_sub_project').addClass('hidden');
+        $('.panel_viaje').addClass('hidden');
+        $('.panel_project').removeClass('hidden');
+    }
+
+    function fillFormSubProject(data){
+        $('.info_user_subpro').removeClass('hidden');
+        $('#txt_subproject_id').val(data.subproject.id);
+        $('#txt_project_id_subproject').val(data.subproject.project_id);
+        $('.label-name-subproject').text(data.project.name);
+        $('#txt_subpro_name').val(data.subproject.name);
+        $('#txt_subpro_descr').val(data.subproject.description);
+        $('#txt_subpro_activo option[value="'+data.subproject.active+'"]').attr("selected", "selected");
+        $('.fecha-subpro').text('Fecha: '+data.subproject.created_at);
+        $('.label-user-subproject').text('Autor: '+ data.user.original.data.name+ ' '+data.user.original.data.las_name);
+        $('.panel_sub_project').removeClass('hidden');
+        $('.panel_viaje').addClass('hidden');
+        $('.panel_project').addClass('hidden');
     }
 
     function clearFormProject(){

@@ -52,7 +52,17 @@ class SubProjectWebController extends Controller
      */
     public function show($id)
     {
-        //
+        $subproject = SubProject::find($id);
+
+        //dd($subproject->project->name);
+        $dataUser = ServiciosController::getProfile($subproject->user_id);
+
+        $array= [
+            'subproject'    =>  $subproject,
+            'project'       =>  $subproject->project,
+            'user'          =>  $dataUser
+        ];
+        return response()->json($array);
     }
 
     /**
