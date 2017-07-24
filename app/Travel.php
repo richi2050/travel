@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Carbon\Carbon;
+use Log;
+
 class Travel extends Model
 {
     protected $fillable =[
@@ -23,5 +26,10 @@ class Travel extends Model
     public function subproject()
     {
         return $this->belongsTo('App\SubProject','sub_project_id','id');
+    }
+
+    function getCreatedAtAttribute($value)
+    {
+        return $this->attributes['created_at'] = Carbon::parse($value)->format('Y-m-d');
     }
 }

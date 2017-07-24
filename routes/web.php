@@ -18,5 +18,6 @@ Route::group(['middleware' => ['auth.session']], function () {
     Route::resource('project','ProjectWebController');
     Route::get('list/project','ProjectExtendController@list_project')->name('list_project');
     Route::resource('subproject','SubProjectWebController');
+    Route::resource('travel','TravelWebController');
 
 });

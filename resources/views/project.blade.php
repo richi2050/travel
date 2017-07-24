@@ -390,8 +390,8 @@
                             <div class='form-group'>
                                 <label class='control-label label-form col-md-2'>Nombre:</label>
                                 <div class="col-md-10">
-                                    <input type='hidden' name='id' id='txt_pro_id' class="">
-                                    <input type='hidden' name='type' id='txt_type' class="" value='1'>
+                                    <input type='hidden' name='id' class="" id='txt_pro_id' class="">
+                                    <input type='hidden' name='type' class="" id='txt_type' class="" value='1'>
                                     {{ Form::text('nombre','',['class' => 'form-control','id'=>'txt_pro_name']) }}
                                 </div>
                             </div>
@@ -443,10 +443,10 @@
                             {{ Form::open(['id'=>'form_subproject_id','class' => 'form-horizontal']) }}
                                 <div class='form-group'>
                                     <label class='control-label label-form col-md-2'>Proyecto</label>
-                                    <input type="hidden" id="txt_subproject_id" name="id">
-                                    <input type="hidden" id="txt_project_id_subproject" name="project_id">
+                                    <input type="" id="txt_subproject_id" name="id">
+                                    <input type="" id="txt_project_id_subproject" name="project_id">
                                     <div class="col-md-10">
-                                        <label class='control-label label-name-subproject label-form'>Proyecto</label>
+                                        <label class='control-label label-name-project label-form' id="label_name_project">Proyecto</label>
                                     </div>
                                 </div>
                                 <div class='form-group'>
@@ -499,30 +499,56 @@
                             <h3 class="panel-title"> <i class="fa icon-viaje fa-form-title" aria-hidden="true"></i> Viajes </h3>
                         </div>
                         <div class="panel-body">
-                            {{ Form::open(['id'=>'form_id','class' => 'form-horizontal']) }}
+                            {{ Form::open(['id'=>'form_travel_id','class' => 'form-horizontal']) }}
                             <div class='form-group'>
-                                <label class='control-label label-form col-md-2'>Proyecto</label>
-                                <div class="col-md-10">
+                                <input type="" id="txt_travel_id" name="id">
+                                <input type="" id="txt_travel_id_project" name="project_id">
+                                <input type="" id="txt_travel_id_subproject" name="subproject_id">
+
+                                <label class='control-label label-form col-md-3'>Proyecto</label>
+                                <div class="col-md-9">
                                     <label class='control-label label-name-project label-form'>Proyecto</label>
                                 </div>
                             </div>
-                            <div class='form-group pull-left'>
-                                <label class='control-label label-form col-md-6'>Sub Proyecto</label>
-                                <div class="col-md-6">
+                            <div class='form-group'>
+                                <label class='control-label label-form col-md-3'>Sub Proyecto</label>
+                                <div class="col-md-9">
                                     <label class='control-label label-name-subproject label-form'>Sub Proyecto</label>
                                 </div>
                             </div>
                             <div class='form-group'>
+                                <label class='control-label label-form col-md-3'>Nombre del Viaje</label>
+                                <div class="col-md-9">
+                                    {{ Form::text('nombre','',['class' => 'form-control','id'=>'txt_travel_name']) }}
+                                </div>
+                            </div>
+
+                            <div class='form-group'>
+                                <label class='control-label label-form col-md-3'>Descripcion</label>
+                                <div class="col-md-9">
+                                    {{ Form::textarea('descripcion','',['class' => 'form-control','id'=>'txt_travel_descr']) }}
+                                </div>
+                            </div>
+                            <div class='form-group'>
+                                <label class='control-label label-form col-md-3'>Status</label>
+                                <div class="col-md-9">
+                                    {{ Form::select('activo', array('1' => 'Activo', '0' => 'Inactivo'), 1,['class' => 'form-control','id'=>'txt_travel_activo']) }}
+                                </div>
+                            </div>
+                            <div class='form-group info_user_travel hidden'>
+                                <label class='control-label label-user-travel label-form col-xs-6'>Autor: {{ "Ricardo Lugo" }}</label>
+                                <div class="col-xs-6">
+                                    <label class='control-label label-form fecha-travel'> Fecha : </label>
+                                </div>
+                            </div>
+                            <div class='form-group'>
                                 <div class="col-md-12">
-                                    <input type='button' data-type='1' value='Registrar' class='save btn btn-sm btn-save pull-right'>
-                                    <button  type='button' data-type='1' id='btn-plus' class='hidden btn btn-default pull-right'>+</button>
+                                    <input type='button' data-type='1' value='Registrar' id="register_travel" class='save btn btn-sm btn-save pull-right'>
                                 </div>
                             </div>
                             {{ Form::close() }}
                         </div>
                     </div>
-
-
                 </div>
                 <!-- fin del panel viaje -->
             </div>
@@ -534,7 +560,7 @@
 
 <script>
     $(document).ready(function(){
-
+        clearFormProject();
         $('#register_project').unbind().bind('click',function(){
             $datForm = $('#form_project_id').serialize();
             $.ajax({
@@ -555,6 +581,34 @@
 
         $('#register_subproject').unbind().bind('click',function(){
             $formSubproject = $('#form_subproject_id').serialize();
+            $.ajax({
+                url:'{{ route("subproject.store") }}',
+                data: $formSubproject,
+                type:'POST',
+                dataType: 'json',
+                success:function(data){
+                    ListProject();
+
+                },error:function(data){
+
+                }
+            });
+        });
+
+        $('#register_travel').unbind().bind('click',function(){
+            $formTravel = $('#form_travel_id').serialize();
+            $.ajax({
+                url:'{{ route("travel.store") }}',
+                data: $formTravel,
+                type:'POST',
+                dataType: 'json',
+                success:function(data){
+
+
+                },error:function(data){
+
+                }
+            });
         });
 
         $('.add_new_project').unbind().bind('click',function(){
@@ -563,6 +617,9 @@
 
         $('#content-plus-project').unbind().bind('click',function(){
             clearFormSubProject();
+        });
+        $('#content-plus-subproject').unbind().bind('click',function(){
+            clearFormTravel();
         });
 
         $('.tree_label').unbind().bind('click',function(){
@@ -580,6 +637,7 @@
                     break;
                 case 3:
                     $route = "{{ url('travel/') }}"+"/"+$id;
+
                     break;
                 default:
             }
@@ -595,10 +653,9 @@
                             break;
                         case 2:
                             fillFormSubProject(data)
-
                             break;
                         case 3:
-                            $route = "{{ url('travel/') }}"+"/"+$id;
+                            fillFormTravel(data);
                             break;
                         default:
                     }
@@ -614,8 +671,39 @@
     function clearFormSubProject(){
         $project_id = $('#txt_pro_id').val();
         $name_project = $('#txt_pro_name').val();
+        console.log($project_id);
+        console.log($name_project);
         $('.label-name-project').text($name_project);
-        $('#project_id_subproject').val($project_id);
+        $('#txt_project_id_subproject').val($project_id);
+        $('.panel_project').addClass('hidden');
+        $('.panel_sub_project').removeClass('hidden');
+    }
+
+    function clearFormTravel(){
+        $('.panel_viaje').removeClass('hidden');
+        $('.panel_project').addClass('hidden');
+        $('.panel_sub_project').addClass('hidden');
+        $subprojectId = $('#txt_subproject_id').val();
+        $nameSubproject = $('#txt_subpro_name').val();
+        $projectId = $('#txt_project_id_subproject').val();
+        $nameProject = $('#label_name_project').text();
+        $('.label-name-project').text($nameProject);
+        $('#txt_travel_id_project').val($projectId);
+        $('#txt_travel_id_subproject').val($subprojectId);
+        $('.label-name-subproject').text($nameSubproject);
+
+
+
+
+        /*
+        *
+        *
+        *txt_subproject_id
+        * txt_project_id_subproject
+        * label-name-project
+        * txt_subpro_name
+        *
+        * */
     }
 
 
@@ -638,7 +726,7 @@
         $('.info_user_subpro').removeClass('hidden');
         $('#txt_subproject_id').val(data.subproject.id);
         $('#txt_project_id_subproject').val(data.subproject.project_id);
-        $('.label-name-subproject').text(data.project.name);
+        $('.label-name-project').text(data.project.name);
         $('#txt_subpro_name').val(data.subproject.name);
         $('#txt_subpro_descr').val(data.subproject.description);
         $('#txt_subpro_activo option[value="'+data.subproject.active+'"]').attr("selected", "selected");
@@ -657,10 +745,30 @@
         $('#txt_pro_activo option[value=1]').attr("selected",true);
         $('#txt_pro_activo option[value=0]').attr("selected",false);
         $('.fecha-pro').text('Fecha: ');
+
+        $('.panel_project').removeClass('hidden');
         $('.panel_sub_project').addClass('hidden');
         $('.panel_viaje').addClass('hidden');
         $('#content-plus-project').addClass('hidden');
     }
+
+    function fillFormTravel(data) {
+        $('.info_user_travel').removeClass('hidden')
+        $('#txt_travel_id').val(data.travel.id);
+        $('#txt_travel_name').val(data.travel.name);
+        $('#txt_travel_descr').val(data.travel.description);
+        $('#txt_travel_activo option[value="'+data.travel.active+'"]').attr("selected", "selected");
+        $('#txt_travel_id_project').val(data.project.id);
+        $('#txt_travel_id_subproject').val(data.subproject.id);
+        $('.fecha-travel').text('Fecha: '+data.travel.created_at);
+        $('.label-user-travel').text('Autor: '+ data.user.original.data.name+ ' '+data.user.original.data.las_name);
+        $('.label-name-project').text(data.project.name);
+        $('.label-name-subproject').text(data.subproject.name);
+        $('.panel_sub_project').addClass('hidden');
+        $('.panel_viaje').removeClass('hidden');
+        $('.panel_project').addClass('hidden');
+    }
+
     
     function ListProject() {
         $.ajax({
