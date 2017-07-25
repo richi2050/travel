@@ -573,7 +573,7 @@
                         ListProject();
                     }
                 },error:function(){
-                    alert('Intenta mas tarde ...');
+                    alert('Upps lo sentimos mucho, intente mas tarde');
                 }
             });
 
@@ -588,9 +588,8 @@
                 dataType: 'json',
                 success:function(data){
                     ListProject();
-
                 },error:function(data){
-
+                    alert('Upps lo sentimos mucho, intente mas tarde');
                 }
             });
         });
@@ -603,10 +602,9 @@
                 type:'POST',
                 dataType: 'json',
                 success:function(data){
-
-
+                    ListProject();
                 },error:function(data){
-
+                    alert('Upps lo sentimos mucho, intente mas tarde');
                 }
             });
         });
@@ -661,7 +659,7 @@
                     }
 
                 },error:function(data){
-                    alert('Intenta mas tarde ...');
+                    alert('Upps lo sentimos mucho, intente mas tarde');
                 }
             });
 
@@ -691,22 +689,7 @@
         $('#txt_travel_id_project').val($projectId);
         $('#txt_travel_id_subproject').val($subprojectId);
         $('.label-name-subproject').text($nameSubproject);
-
-
-
-
-        /*
-        *
-        *
-        *txt_subproject_id
-        * txt_project_id_subproject
-        * label-name-project
-        * txt_subpro_name
-        *
-        * */
     }
-
-
 
     function fillFormProject(data){
         $('.info_user_pro').removeClass('hidden')
@@ -716,7 +699,6 @@
         $('#txt_pro_activo option[value="'+data.project.active+'"]').attr("selected", "selected");
         $('.fecha-pro').text('Fecha: '+data.project.created_at);
         $('.label-user-project').text('Autor: '+ data.user.original.data.name+ ' '+data.user.original.data.las_name);
-
         $('.panel_sub_project').addClass('hidden');
         $('.panel_viaje').addClass('hidden');
         $('.panel_project').removeClass('hidden');
@@ -745,7 +727,6 @@
         $('#txt_pro_activo option[value=1]').attr("selected",true);
         $('#txt_pro_activo option[value=0]').attr("selected",false);
         $('.fecha-pro').text('Fecha: ');
-
         $('.panel_project').removeClass('hidden');
         $('.panel_sub_project').addClass('hidden');
         $('.panel_viaje').addClass('hidden');

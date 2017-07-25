@@ -20,4 +20,6 @@ Route::group(['middleware' => ['auth.session']], function () {
     Route::resource('subproject','SubProjectWebController');
     Route::resource('travel','TravelWebController');
 
+    Route::get('prueba','PruebaController@prueba');
+
 });

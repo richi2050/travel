@@ -15,8 +15,10 @@ class Travel extends Model
         'description',
         'project_id',
         'sub_project_id',
-        'amount',
         'active',
+        'business_id',
+        'short_name',
+        'user_id',
         'business_id'];
 
     public function project()

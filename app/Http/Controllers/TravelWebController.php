@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Travel;
 use Session;
+use Validator;
 
 class TravelWebController extends Controller
 {
@@ -37,20 +38,19 @@ class TravelWebController extends Controller
     public function store(Request $request)
     {
         /*
-         * "_token" => "R35up6B3eCEbqXVp0JqA5Lxyn6qmsER9TCU0Zs3S"
+         *  "_token" => "DlI9JCf42M9yhPHgvr2Hjr8iBEkmuJr1xDObwygc"
   "id" => null
-  "project_id" => "10"
-  "subproject_id" => "1"
-  "nombre" => "trteer"
-  "descripcion" => "etertre"
+  "project_id" => "20"
+  "subproject_id" => "22"
+  "nombre" => "2222"
+  "descripcion" => "22222222222222"
   "activo" => "1"
-  "business_id" => "60054e5c-c8ce-421b-9b0c-fafc50ece671"
+  "business_id" => "4ea72fcf-f158-4fc5-aa1b-aebd04a2c9f1"
   "user_id" => "af342f96-9425-44c2-bdde-78b9d00b131e"*/
         $data = [];
         $data += $request->all();
         $data['business_id'] = Session::get('business_id');
         $data['user_id'] = Session::get('user_id');
-        dd($data);
 
         $val =Validator::make($data,
             [
@@ -66,12 +66,12 @@ class TravelWebController extends Controller
             return  response()->json($val->errors());
         }
         $data = Travel::create([
-            'name'          =>  $data['\'nombre\''],
+            'name'          =>  $data['nombre'],
             'description'   =>  $data['descripcion'],
-            'project_id'    =>  $request->project_id,
-            'sub_project_id'=>  $request->sub_project_id,
-            'amount'        =>  $request->amount,
-            'business_id'   =>  $request->business_id,
+            'project_id'    =>  $data['project_id'],
+            'sub_project_id'=>  $data['subproject_id'],
+            'short_name'    =>  '123456',
+            'business_id'   =>  $data['business_id'],
             'user_id'       =>  $data['user_id']
         ]);
 

@@ -15,6 +15,8 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    const click_me_pro_negocios=FALSE;
+
     public function index()
     {
         return view('home');
@@ -48,7 +50,7 @@ class AuthController extends Controller
                 'body'    =>json_encode([
                     "email"     =>$request->email,
                     "password"  =>$request->password,
-                    "servicio"  =>"1",
+                    "servicio"  =>"7",
                     "origen"    =>"web"])
             ]);
             $zonerStatusCode = $response->getStatusCode();
@@ -59,6 +61,8 @@ class AuthController extends Controller
                 $request->session()->put('name',$zonerResponse->request->name);
                 $request->session()->put('img',$zonerResponse->request->img);
                 $request->session()->put('lastName',$zonerResponse->request->lastName);
+                $request->session()->put('rol',$zonerResponse->request->rol);
+                $request->session()->put('structure',$zonerResponse->request->structure);
                 return redirect()->route('list');
             }else{
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Session;
 
 class PruebaController extends Controller
 {
@@ -13,7 +14,7 @@ class PruebaController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -83,6 +84,7 @@ class PruebaController extends Controller
     }
 
     public function prueba(Request $request){
+        dd(Session::all());
         dd('entra a funcion prueba');
 
     }

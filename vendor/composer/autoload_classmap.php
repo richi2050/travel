@@ -26,6 +26,8 @@ return array(
     'App\\Http\\Controllers\\RoutingController' => $baseDir . '/app/Http/Controllers/RoutingController.php',
     'App\\Http\\Controllers\\ServiciosController' => $baseDir . '/app/Http/Controllers/ServiciosController.php',
     'App\\Http\\Controllers\\SubProjectWebController' => $baseDir . '/app/Http/Controllers/SubProjectWebController.php',
+    'App\\Http\\Controllers\\TravelExtendController' => $baseDir . '/app/Http/Controllers/TravelExtendController.php',
+    'App\\Http\\Controllers\\TravelWebController' => $baseDir . '/app/Http/Controllers/TravelWebController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\AuthSession' => $baseDir . '/app/Http/Middleware/AuthSession.php',
     'App\\Http\\Middleware\\AuthToken' => $baseDir . '/app/Http/Middleware/AuthToken.php',

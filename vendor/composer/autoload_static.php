@@ -338,6 +338,8 @@ class ComposerStaticInit46451ef85d33635309008259f2651b82
         'App\\Http\\Controllers\\RoutingController' => __DIR__ . '/../..' . '/app/Http/Controllers/RoutingController.php',
         'App\\Http\\Controllers\\ServiciosController' => __DIR__ . '/../..' . '/app/Http/Controllers/ServiciosController.php',
         'App\\Http\\Controllers\\SubProjectWebController' => __DIR__ . '/../..' . '/app/Http/Controllers/SubProjectWebController.php',
+        'App\\Http\\Controllers\\TravelExtendController' => __DIR__ . '/../..' . '/app/Http/Controllers/TravelExtendController.php',
+        'App\\Http\\Controllers\\TravelWebController' => __DIR__ . '/../..' . '/app/Http/Controllers/TravelWebController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\AuthSession' => __DIR__ . '/../..' . '/app/Http/Middleware/AuthSession.php',
         'App\\Http\\Middleware\\AuthToken' => __DIR__ . '/../..' . '/app/Http/Middleware/AuthToken.php',
