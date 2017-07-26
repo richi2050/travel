@@ -13,8 +13,7 @@
 |
 */
 
-Route::post('/login','HomeController@getData');
-Route::get('/login/cpaccess','Auth\LoginController@login');
+Route::post('login','Auth\LoginController@login');
 
 Route::post('prueba','HomeController@prueba')->name('token');
 

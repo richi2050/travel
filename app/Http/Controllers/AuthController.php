@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Mockery\Exception;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
-use Response;
+use Illuminate\Support\Facades\Response;
 
 class AuthController extends Controller
 {

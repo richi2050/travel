@@ -37,21 +37,10 @@ class TravelWebController extends Controller
      */
     public function store(Request $request)
     {
-        /*
-         *  "_token" => "DlI9JCf42M9yhPHgvr2Hjr8iBEkmuJr1xDObwygc"
-  "id" => null
-  "project_id" => "20"
-  "subproject_id" => "22"
-  "nombre" => "2222"
-  "descripcion" => "22222222222222"
-  "activo" => "1"
-  "business_id" => "4ea72fcf-f158-4fc5-aa1b-aebd04a2c9f1"
-  "user_id" => "af342f96-9425-44c2-bdde-78b9d00b131e"*/
         $data = [];
         $data += $request->all();
         $data['business_id'] = Session::get('business_id');
         $data['user_id'] = Session::get('user_id');
-
         $val =Validator::make($data,
             [
                 'nombre'        =>  'required|min:2|max:150|alpha_num_spaces|string_exist:travels,name',
@@ -74,7 +63,6 @@ class TravelWebController extends Controller
             'business_id'   =>  $data['business_id'],
             'user_id'       =>  $data['user_id']
         ]);
-
         return response()->json(['success' => true ]);
     }
 
