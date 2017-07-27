@@ -13,7 +13,6 @@ class BusinessController extends Controller
         Session::forget('business_id');
         Session::forget('goup_id');
         Session::forget('business_description');
-
         $client = new Client();
         $urlBussines = "http://cpaaccess.cpalumis.com.mx/api/usuario/businessListing";
         $responseBussines = $client->post($urlBussines, [
@@ -25,7 +24,6 @@ class BusinessController extends Controller
         $zonerStatusCodeBusi = $responseBussines->getStatusCode();
         $zonerResponseBusi = json_decode($responseBussines->getBody());
         return view('list_bussines',['lista' => $zonerResponseBusi]);
-
     }
 
     public function generateBusiness(Request $request){

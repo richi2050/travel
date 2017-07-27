@@ -7,6 +7,7 @@ Route::get('/', 'HomeController@index')->name('beginin');
 
 Route::post('/home', 'AuthController@store')->name('auth.store');
 
+Route::get('/func', 'PruebaController@func');
 
 Route::group(['middleware' => ['auth.session']], function () {
     Route::get('/home', 'AuthController@index')->name('auth.index');

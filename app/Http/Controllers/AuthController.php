@@ -6,19 +6,14 @@ use Illuminate\Http\Request;
 use Mockery\Exception;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Response;
+use Response;
 
 class AuthController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    const click_me_pro_negocios=FALSE;
 
     public function index()
     {
+
         return view('home');
     }
 

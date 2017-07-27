@@ -11,11 +11,4 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    protected $ti;
-
-    public function __construct()
-    {
-        $this->ti = 'hola';
-    }
-
 }
