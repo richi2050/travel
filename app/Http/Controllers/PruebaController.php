@@ -84,7 +84,7 @@ class PruebaController extends Controller
     }
 
     public function prueba(Request $request){
-        dd(Session::all());
+        dd(Session::get('rol')->permisos);
         dd('entra a funcion prueba');
 
     }

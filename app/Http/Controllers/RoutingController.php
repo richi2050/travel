@@ -13,4 +13,20 @@ class RoutingController extends Controller
         }
         return view('menus.business_processes');
     }
+
+    public function travelAuthorization(){
+        if(checkPermission('click_me_aut_viaje')){
+            dd('aborte');
+        }
+        return view('menus.travel_authorization');
+    }
+
+    public function solicitudTravel(){
+        if(checkPermission('click_me_sol_gas_viaje')){
+            dd('aborte');
+        }
+        return view('solicitud.solicitud_travel');
+    }
+
+
 }

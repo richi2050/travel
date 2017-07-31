@@ -47,7 +47,9 @@
         <div class="col-md-3 col-sm-3 col-xs-6 panel_menu" >
             <div class="about-item scrollpoint sp-effect5">
                 <p>
-                    <img src="{{ asset('images/menu/autorizacion_viaje.png') }}" alt="">
+                    <a {{ checkPermission('click_me_aut_viaje') ?  '' : 'href= '.route('travel_autho') }}>
+                        <img src="{{ asset('images/menu/autorizacion_viaje.png') }}" alt="">
+                    </a>
                 </p>
                 <h3 class="font_menu">Autorización del viaje.</h3>
             </div><! --/about-item -->

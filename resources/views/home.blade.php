@@ -8,7 +8,6 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 row-cont-info">
-
                             <div {{ checkPermission('click_me_est_cuenta') ? '' : ' id = sensor_edo_cta onmouseover = destaca("home_boton_edo_cta"); onmouseleave=restaura();'  }} ></div>
                             <img id="maincircle" src="images/circulo.png" class="circulo img-responsive center-block">
                             <div {{ checkPermission('click_me_pro_negocios') ? '' : 'data-href= '. route("business_process") .' class =click_href id = sensor_proceso onmouseover = destaca("home_boton_proceso"); onmouseleave=restaura();'   }}  ></div>

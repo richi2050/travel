@@ -15,7 +15,15 @@ Route::group(['middleware' => ['auth.session']], function () {
     Route::get('auth/logout','AuthController@logout')->name('logout_exter');
     Route::get('list/business','BusinessController@lista')->name('list');
     Route::get('generate/business','BusinessController@generateBusiness')->name('busine_select');
+
+    /* Inicio de rutas  de menus*/
+
     Route::get('business/process','RoutingController@businessProcess')->name('business_process');
+    Route::get('travel/authorization','RoutingController@travelAuthorization')->name('travel_autho');
+    Route::get('solicitud/travel','RoutingController@solicitudTravel')->name('solicitud_travel');
+
+
+    /* Fin de rutas  de menus*/
     Route::resource('project','ProjectWebController');
     Route::get('list/project','ProjectExtendController@list_project')->name('list_project');
     Route::resource('subproject','SubProjectWebController');
